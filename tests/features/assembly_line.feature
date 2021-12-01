@@ -15,26 +15,26 @@ Scenario: I have two name parts
   And I tap to continue
   Then the question id should be "end"
 
-@fast @al2
-Scenario: I have three name parts
-  Given I start the interview at "AL_tests"
-  And I set the name of "users[0]" to "Uli Udo User"
-  And I tap to continue
-  And I set the address of "users[0]" to "120 Tremont Street, Unit 2, Boston, MA 02108"
-  And I tap to continue
-  And I set the name of "users[1]" to "Uli2 User2"
-  And I set the var "users[i].proxy_var" to "Mixed proxy var step test"
-  And I tap to continue
-  Then the question id should be "end"
-
-@fast @al3
-Scenario: I have four name parts
-  Given I start the interview at "AL_tests"
-  And I set the name of "users[0]" to "Uli Udo User Sr"
-  And I tap to continue
-  And I set the address of "users[0]" to "120 Tremont Street, Unit 2, Boston, MA 02108"
-  And I tap to continue
-  And I set the name of "users[1]" to "Uli2 User2"
-  And I set the var "users[i].proxy_var" to "Mixed proxy var step test"
-  And I tap to continue
-  Then the question id should be "end"
+#@fast @al2
+#Scenario: I have three name parts
+#  Given I start the interview at "AL_tests"
+#  And I set the name of "users[0]" to "Uli Udo User"
+#  And I tap to continue
+#  And I set the address of "users[0]" to "120 Tremont Street, Unit 2, Boston, MA 02108"
+#  And I tap to continue
+#  And I set the name of "users[1]" to "Uli2 User2"
+#  And I set the var "users[i].proxy_var" to "Mixed proxy var step test"
+#  And I tap to continue
+#  Then the question id should be "end"
+#
+#@fast @al3
+#Scenario: I have four name parts
+#  Given I start the interview at "AL_tests"
+#  And I set the name of "users[0]" to "Uli Udo User Sr"
+#  And I tap to continue
+#  And I set the address of "users[0]" to "120 Tremont Street, Unit 2, Boston, MA 02108"
+#  And I tap to continue
+#  And I set the name of "users[1]" to "Uli2 User2"
+#  And I set the var "users[i].proxy_var" to "Mixed proxy var step test"
+#  And I tap to continue
+#  Then the question id should be "end"
