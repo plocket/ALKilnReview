@@ -22,14 +22,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Write new package.json
+    - name: Overwrite or create package.json
       run: |
-        echo "this is a line" > file.txt
-        if [[ -f "file.txt" ]]; then
-          echo "$FILE exists."
-        else
-          echo "No file"
-        fi
+        set -o noclobber
+        echo "this is a line" >| file.txt
       shell: bash
     - name: file exists
       run: |
