@@ -25,10 +25,10 @@ runs:
     - name: Overwrite or create package.json
       run: |
         cat << EOF > "output.txt"
-        > Hello
-        > World
-        > !
-        > EOF
+        Hello
+        World
+        !
+        EOF
       shell: bash
     - name: file exists
       run: |
