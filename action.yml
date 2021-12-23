@@ -30,7 +30,7 @@ runs:
       shell: bash
     - name: file exists
       run: |
-        echo -f "file.txt"
+        echo test -f "file.txt"
       shell: bash
     # Install node
     - name: "ALKiln: Install node package manager"
