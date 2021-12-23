@@ -28,10 +28,6 @@ runs:
       run: |
         cat << EOF > "package.json"
         {
-          "name": "docassemble-AssemblyLine",
-          "version": "0.1.0",
-          "description": "",
-          "main": "",
           "scripts": {
             "test": "npm run langs_setup && npm run cucumber -- $@",
             "cucumber_base": "./node_modules/.bin/cucumber-js --require ./node_modules/docassemble-cucumber/lib/index.js",
