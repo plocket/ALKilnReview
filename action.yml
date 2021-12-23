@@ -24,16 +24,15 @@ runs:
   steps:
     - name: Overwrite or create package.json
       run: |
-        set -o noclobber
-        echo "this is a line" >| file.txt
+        cat << EOF > "output.txt"
+        > Hello
+        > World
+        > !
+        > EOF
       shell: bash
     - name: file exists
       run: |
-        if [[ -f "file.txt" ]]; then
-          echo "$FILE exists."
-        else
-          echo "No file"
-        fi
+        cat "output.txt"
       shell: bash
     ## Install node
     #- name: "ALKiln: Install node package manager"
