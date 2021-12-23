@@ -25,7 +25,7 @@ runs:
     - name: Write new package.json
       run: |
         echo "this is a line" > file.txt
-        if [-f "file.txt"]; then
+        if [[ -f "file.txt" ]]; then
           echo "$FILE exists."
         else
           echo "No file"
@@ -33,7 +33,7 @@ runs:
       shell: bash
     - name: file exists
       run: |
-        if [-f "file.txt"]; then
+        if [[ -f "file.txt" ]]; then
           echo "$FILE exists."
         else
           echo "No file"
