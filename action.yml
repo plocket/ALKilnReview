@@ -22,6 +22,16 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Write new package.json
+      run: |
+        set -o noclobber
+        echo "this is a line" >| file.txt
+        echo -f "file.txt"
+      shell: bash
+    - name: file exists
+      run: |
+        echo -f "file.txt"
+      shell: bash
     # Install node
     - name: "ALKiln: Install node package manager"
       uses: actions/setup-node@v1
