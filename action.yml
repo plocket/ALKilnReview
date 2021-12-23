@@ -109,43 +109,43 @@ runs:
     - name: "ALKiln: Create a Project and pull the package from GitHub"
       run: npm run setup
       shell: bash
-    #- name: "ALKiln: Run tests"
-    #  if: ${{ success() }}
-    #  run: npm run test -- ${{ github.event.inputs.tags && format('"--tags" "{0}"', github.event.inputs.tags) }}
-    #  shell: bash
-    #- run: echo -e "\n\n====ALKiln could not create a project on your server's testing account or pull your package into it. Check the messages above this line.\n\n"
-    #  if: ${{ failure() }}
-    #  shell: bash
-    #- name: "ALKiln: Delete project from docassemble test account"
-    #  if: ${{ always() }}
-    #  run: npm run takedown
-    #  shell: bash
-    #
-    ## Upload artifacts that subscribers can download on the Actions summary page
-    #- name: "ALKiln: Upload errors to action summary artifacts"
-    #  if: ${{ failure() }}
-    #  uses: actions/upload-artifact@v2
-    #  with:
-    #    name: errors
-    #    path: ./**/error*.jpg
-    #- name: "ALKiln: Upload screenshots to action summary artifacts"
-    #  if: ${{ always() }}
-    #  uses: actions/upload-artifact@v2
-    #  with:
-    #    name: screenshots
-    #    path: ./**/screenshot*.jpg
-    #- name: "ALKiln: Upload downloaded files to action summary artifacts"
-    #  if: ${{ always() }}
-    #  uses: actions/upload-artifact@v2
-    #  with:
-    #    name: downloads
-    #    path: ./**/downloads_*
-    #- name: "ALKiln: Upload report to action summary artifacts"
-    #  if: ${{ always() }}
-    #  uses: actions/upload-artifact@v2
-    #  with:
-    #    name: report
-    #    path: ./**/*_report_*
+    - name: "ALKiln: Run tests"
+      if: ${{ success() }}
+      run: npm run test -- ${{ github.event.inputs.tags && format('"--tags" "{0}"', github.event.inputs.tags) }}
+      shell: bash
+    - run: echo -e "\n\n====ALKiln could not create a project on your server's testing account or pull your package into it. Check the messages above this line.\n\n"
+      if: ${{ failure() }}
+      shell: bash
+    - name: "ALKiln: Delete project from docassemble test account"
+      if: ${{ always() }}
+      run: npm run takedown
+      shell: bash
+    
+    # Upload artifacts that subscribers can download on the Actions summary page
+    - name: "ALKiln: Upload errors to action summary artifacts"
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: errors
+        path: ./**/error*.jpg
+    - name: "ALKiln: Upload screenshots to action summary artifacts"
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: screenshots
+        path: ./**/screenshot*.jpg
+    - name: "ALKiln: Upload downloaded files to action summary artifacts"
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: downloads
+        path: ./**/downloads_*
+    - name: "ALKiln: Upload report to action summary artifacts"
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: report
+        path: ./**/*_report_*
 
 # ##################################
 # # A developer's workflow should look similar to the below
