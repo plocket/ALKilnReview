@@ -66,18 +66,19 @@ runs:
           }
         }
       shell: bash
-    - name: file exists
-      run: |
-        cat "package.json"
-      shell: bash
-    ## Install node
-    #- name: "ALKiln: Install node package manager"
-    #  uses: actions/setup-node@v1
-    #  with:
-    #    node-version: "12"
-    #- run: npm install
+    #- name: file exists
+    #  run: |
+    #    cat "package.json"
     #  shell: bash
-    #  
+
+    # Install node
+    - name: "ALKiln: Install node package manager"
+      uses: actions/setup-node@v1
+      with:
+        node-version: "12"
+    - run: npm install
+      shell: bash
+      
     ## Set environment variables
     #- name: "ALKiln: Set environment variables"
     #  # If extra languages were set manually, override the repository
