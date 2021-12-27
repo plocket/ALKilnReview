@@ -95,3 +95,8 @@ Scenario: Test "Then I don’t continue" with an apostrophe
   And I tap to continue
   Then I don’t continue
   And I will be told an answer is invalid
+
+@fast @o9
+Scenario: Test then I get the variable values
+  Given I start the interview at "all_tests"
+  Then I get the var vals

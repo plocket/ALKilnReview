@@ -20,3 +20,4 @@ Scenario: I am able to set a custom wait time before an interview has been loade
 Scenario: Interview name includes url args
   Given I start the interview at "url_args.yml&from=theinternets&random=zoo"
   Then I should see the phrase "zoo"
+  Then I get the var vals
