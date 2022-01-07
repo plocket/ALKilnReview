@@ -38,6 +38,7 @@
     "cheerio": "^1.0.0-rc.5",
     "cucumber": "^6.0.5",
     "dotenv": "^8.2.0",
+    "js-yaml": "^3.13.1",
     "mocha": "^7.2.0",
     "puppeteer": "^3.1.0",
     "sanitize-filename": "^1.6.3"
