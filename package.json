@@ -1,5 +1,5 @@
 {
-  "name": "docassemble-cucumber",
+  "name": "@suffolklitlab/alkiln",
   "version": "3.0.9",
   "description": "Integrated automated end-to-end testing with docassemble, puppeteer, and cucumber.",
   "main": "lib/index.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/plocket/docassemble-cucumber.git"
+    "url": "git+https://github.com/SuffolkLITLab/alkiln.git"
   },
   "keywords": [
     "docassemble",
@@ -30,9 +30,9 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/plocket/docassemble-cucumber/issues"
+    "url": "https://github.com/SuffolkLITLab/alkiln/issues"
   },
-  "homepage": "https://github.com/plocket/docassemble-cucumber#readme",
+  "homepage": "https://github.com/SuffolkLITLab/alkiln#readme",
   "dependencies": {
     "chai": "^4.2.0",
     "cheerio": "^1.0.0-rc.5",
