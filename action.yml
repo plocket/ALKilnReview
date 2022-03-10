@@ -33,17 +33,17 @@ runs:
         {
           "scripts": {
             "test": "npm run langs_setup && npm run cucumber -- $@",
-            "cucumber_base": "./node_modules/.bin/cucumber-js --require ./node_modules/docassemble-cucumber/lib/index.js",
+            "cucumber_base": "./node_modules/.bin/cucumber-js --require ./node_modules/.bin/alkiln-cucumber",
             "cucumber": "run_cucumber(){ npm run cucumber_base -- \"$@\" docassemble/*/data/sources/*.feature; }; run_cucumber",
-            "langs": "npm run langs_setup && ./node_modules/.bin/cucumber-js --require ./node_modules/docassemble-cucumber/lib/index.js docassemble/*/data/sources/*_lang*.feature",
-            "langs_setup": "node_modules/.bin/da-langs 'docassemble/*/data/sources/*.feature'",
-            "setup": "node_modules/.bin/da-setup",
-            "takedown": "node_modules/.bin/da-takedown"
+            "langs": "npm run langs_setup && ./node_modules/.bin/cucumber-js --require ./node_modules/.bin/alkiln-cucumber docassemble/*/data/sources/*_lang*.feature",
+            "langs_setup": "node_modules/.bin/alkiln-langs 'docassemble/*/data/sources/*.feature'",
+            "setup": "node_modules/.bin/alkiln-setup",
+            "takedown": "node_modules/.bin/alkiln-takedown"
           },
           "dependencies": {
             "colors": "1.4.0",
             "@cucumber/cucumber": "^7.3.2",
-            "docassemble-cucumber": "^4.0.0"
+            "@suffolklitlab/alkiln": "^4.0.0"
           }
         }
       shell: bash
@@ -141,9 +141,9 @@ runs:
 #       tags:
 #         description: 'Optional. Use a "tag expression" specify which tagged tests to run. See https://cucumber.io/docs/cucumber/api/#tag-expressions for syntax.'
 #         default: ''
-
+#
 # jobs:
-
+#
 #   interview-testing:
 #     runs-on: ubuntu-latest
 #     name: Run interview tests
