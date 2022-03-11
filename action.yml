@@ -60,6 +60,7 @@ runs:
         echo "PLAYGROUND_PASSWORD=${{ inputs.PLAYGROUND_PASSWORD }}" >> $GITHUB_ENV
         echo "PLAYGROUND_ID=${{ inputs.PLAYGROUND_ID }}" >> $GITHUB_ENV
         echo "DOCASSEMBLE_DEVELOPER_API_KEY=${{ inputs.DOCASSEMBLE_DEVELOPER_API_KEY }}" >> $GITHUB_ENV
+        echo "ALKILN_VERSION=${{ inputs.ALKILN_VERSION }}" >> $GITHUB_ENV
       shell: bash
     # This doesn't use an already established package-lock.json and that
     # comes with some types of test breaking risks. Same problem as before.
