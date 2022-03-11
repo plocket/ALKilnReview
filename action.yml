@@ -32,14 +32,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # Install node
-    - name: "ALKiln: Install node packages"
-      uses: actions/setup-node@v1
-      with:
-        node-version: "17"
-    - run: npm install
-      shell: bash
-
     # Set environment variables
     - name: "ALKiln: Set environment variables"
       # If extra languages were set manually, override the repository
@@ -86,6 +78,14 @@ runs:
       shell: bash
     - name: "ALKiln: confirm info"
       run: echo -e "\nRepo is $REPO_URL\nBranch ref is $BRANCH_PATH\nManually added languages are $EXTRA_LANGUAGES\nAll other data is secret\n"
+      shell: bash
+
+    # Install node after package.json is created
+    - name: "ALKiln: Install node packages"
+      uses: actions/setup-node@v1
+      with:
+        node-version: "17"
+    - run: npm install
       shell: bash
 
     # Run tests
