@@ -43,6 +43,7 @@ Format:
 - Step to create data with story table in a cucumber `Background`
 - Step to trigger a `Background` story table
 - Custom workflow input for ALKiln version so that pre-releases can be used
+- Custom Project setup timeout with env var SETUP_TIMEOUT_SECONDS
 
 ## [3.2.1] - 2022-02-09
 ### Fixed
