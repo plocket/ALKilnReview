@@ -42,8 +42,7 @@ jobs:
         if: ${{ github.event.inputs.extra_languages != '' }}
       # For the testing repo, the `REPO_URL` is that of a different repo and is created in `env:`
       - run: echo "Repo address is $REPO_URL"
-      - run: echo "Date is $(date +'%Y-%m-%d')"
-      - run: echo "Timestamp is $(date)"
+      - run: echo "Date is $(date +'%Y %m %d %H-%M-%S')"
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup environment
@@ -58,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
-          name: alkiln_tests_output-test-${{ steps.date.outputs.date }}
+          name: alkiln_tests_output-test $(date +'%Y %m %d %H-%M-%S')
           path: ./alkiln_tests_output-*
       # Delete Playground Project and project name file
       - name: Cleanup
