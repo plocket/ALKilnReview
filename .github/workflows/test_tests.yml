@@ -43,6 +43,7 @@ jobs:
       # For the testing repo, the `REPO_URL` is that of a different repo and is created in `env:`
       - run: echo "Repo address is $REPO_URL"
       - run: echo "Date is ${{ steps.date.outputs.date }}"
+      - run: echo "Outputs are ${{ steps.date.outputs }}"
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup environment
