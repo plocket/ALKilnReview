@@ -42,7 +42,7 @@ jobs:
         if: ${{ github.event.inputs.extra_languages != '' }}
       # For the testing repo, the `REPO_URL` is that of a different repo and is created in `env:`
       - run: echo "Repo address is $REPO_URL"
-      - run: echo "$(date +'%Y-%m-%d at %Hhr %Mmin %Ssec')\n$(date +'%Y-%m-%d at %Hh %Mm %Ss')\n$(date +'%Y-%m-%d at %Hh%Mm%Ss')\n$(date +'%Y-%m-%d at %H.%M.%S')\n$(date +'%Y-%m-%d at %H-%M-%S')\n$(date +'%Y %m %d at %H-%M-%S')\n$(date +'%Y_%m_%d-at-%H_%M_%S')"
+      - run: echo -e "$(date +'%Y-%m-%d at %Hhrs %Mmins %Ssecs')\n$(date +'%Y-%m-%d at %Hhr %Mmin %Ssec')\n$(date +'%Y-%m-%d at %Hh %Mm %Ss')\n$(date +'%Y-%m-%d at %Hh%Mm%Ss')\n$(date +'%Y-%m-%d at %H.%M.%S')\n$(date +'%Y-%m-%d at %H-%M-%S')\n$(date +'%Y %m %d at %H-%M-%S')\n$(date +'%Y_%m_%d-at-%H_%M_%S')"
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup environment
@@ -57,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
-          name: alkiln_tests_output-test $(date +'%Y-%m-%d at %Hhr %Mmin %Ssec')
+          name: "alkiln_tests_output-test $(date +'%Y-%m-%d at %Hhrs %Mmins %Ssecs')"
           path: ./alkiln_tests_output-*
       # Delete Playground Project and project name file
       - name: Cleanup
