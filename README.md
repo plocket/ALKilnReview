@@ -11,10 +11,10 @@ Read about how to use this framework at https://suffolklitlab.org/docassemble-As
 
 ## Installation
 
-This is [Code for Boston](https://www.codeforboston.org/) project or [Suffolk LIT lab team](https://suffolklitlab.org/).  Please join group and group communication for admin to help  to set up your environment and to set for development. 
+This is [Code for Boston](https://www.codeforboston.org/) project or [Suffolk LIT lab team](https://suffolklitlab.org/).  Please join group and group communication for admin to help to set up your environment and to set for development. 
 
 ## Setting up the environment file
-
+```
 >DOCASSEMBLE_DEVELOPER_API_KEY=<required, please talk to project lead>
 >SERVER_URL=https://apps-dev.suffolklitlab.org
 >REPO_URL=https://github.com/plocket/docassemble-ALAutomatedTestingTests
@@ -27,6 +27,7 @@ This is [Code for Boston](https://www.codeforboston.org/) project or [Suffolk LI
 >SECRET_INVALID_THERE_IS_ANOTHER=invalid value for there_is_another
 >DEBUG=
 >DOCASSEMBLE_DEVELOPER_API_KEY=<required, please talk to project lead>
+```
 
 ## Set up 
 To setup for the integration tests, create the project on the server:
