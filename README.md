@@ -11,7 +11,7 @@ Read about how to use this framework at https://suffolklitlab.org/docassemble-As
 
 ## Installation
 
-This is [code for boston](https://www.codeforboston.org/) project or [suffolk lit lab team](https://suffolklitlab.org/).  1. please join group and group communication for admin to help  to set up your environment and to set for development. 
+This is [Code for Boston](https://www.codeforboston.org/) project or [Suffolk LIT lab team](https://suffolklitlab.org/).  Please join group and group communication for admin to help  to set up your environment and to set for development. 
 
 ## Setting up the environment file
 
@@ -34,7 +34,7 @@ To setup for the integration tests, create the project on the server:
 npm run setup
 ```
 
-## Integration tests
+## Integration Tests
 Use the syntax below to trigger specific tags:
 ```
 npm run cucumber -- "--tags" "@tagname"
@@ -49,7 +49,7 @@ To run a complete set of tests before merging:
 npm run tests
 ```
 
-## Take down 
+## Take Down 
 When complete:
 ```
 npm run takedown
