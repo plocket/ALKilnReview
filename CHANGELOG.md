@@ -40,6 +40,10 @@ Format:
 -->
 <!-- ## [Unreleased] -->
 
+## [4.6.1] - 2022-06-28
+### Fixed
+- Single dropdown fields on pages are now recognized as fields properly
+
 ## [4.6.0] - 2022-06-10
 ### Added
 - Steps to test web accessibility either on individual page or for all subsequent pages.
