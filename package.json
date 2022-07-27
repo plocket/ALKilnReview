@@ -12,9 +12,9 @@
     "langs_setup": "./lib/utils/langs.js 'tests/features/*.feature'",
     "langs_local": "npm run langs_setup && npm run local",
     "local": "npm run setup && npm run cucumber; npm run takedown",
-    "setup": "./lib/docassemble/setup.js",
+    "setup": "env-cmd node ./lib/docassemble/setup.js",
     "takedown": "./lib/docassemble/takedown.js",
-    "unit": "mocha tests/unit_tests/*.test.*"
+    "unit": "env-cmd mocha tests/unit_tests/*.test.*"
   },
   "repository": {
     "type": "git",
@@ -46,7 +46,8 @@
     "puppeteer": "13.1.3",
     "qs": "6.10.2",
     "sanitize-filename": "1.6.3",
-    "uuid": "8.3.2"
+    "uuid": "8.3.2",
+    "env-cmd": "10.1.0"
   },
   "bin": {
     "alkiln-setup": "./lib/docassemble/setup.js",
