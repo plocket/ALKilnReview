@@ -9,11 +9,11 @@
     "cucumber": "run_base(){ npm run cucumber_base -- \"$@\" tests/features/*.feature; }; run_base",
     "cucumber_external": "run_cucumber(){ tmp_path=`pwd`; ( new_path=\"$1\"; shift; cd \"$new_path\"; npm run --prefix \"${tmp_path}\" cucumber_base -- \"$@\" \"$new_path\"/docassemble/*/data/sources/*.feature;) }; run_cucumber",
     "langs": "npm run langs_setup && ./node_modules/.bin/cucumber-js --require ./lib/index.js tests/features/*_lang*.feature",
-    "langs_setup": "./lib/utils/langs.js 'tests/features/*.feature'",
+    "langs_setup": "env-cmd node ./lib/utils/langs.js 'tests/features/*.feature'",
     "langs_local": "npm run langs_setup && npm run local",
     "local": "npm run setup && npm run cucumber; npm run takedown",
     "setup": "env-cmd node ./lib/docassemble/setup.js",
-    "takedown": "./lib/docassemble/takedown.js",
+    "takedown": "env-cmd node ./lib/docassemble/takedown.js",
     "unit": "env-cmd mocha tests/unit_tests/*.test.*"
   },
   "repository": {
