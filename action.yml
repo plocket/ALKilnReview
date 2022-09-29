@@ -68,28 +68,43 @@ runs:
         echo -e "\nALKiln version is $ALKILN_VERSION\nRepo is $REPO_URL\nBranch ref is $BRANCH_PATH\nMAX_SECONDS_FOR_SETUP is $MAX_SECONDS_FOR_SETUP\nManually added languages are $EXTRA_LANGUAGES\n"
       shell: bash
 
-    # This doesn't use an already established package-lock.json and that
-    # comes with some types of test breaking risks. Same problem as before.
-    - name: Temporarily overwrite or create package.json
+    # Create/manage files in user's repo needed for testing
+    # Some are stored in our own directories and we'll copy those into here
+    - name: Temporarily copy package.json for scripts
       run: |
-        cat << EOF > "package.json"
-        {
-          "scripts": {
-            "test": "npm run langs_setup && npm run cucumber -- $@",
-            "cucumber_base": "./node_modules/.bin/cucumber-js --require ./node_modules/@suffolklitlab/alkiln/lib/index.js",
-            "cucumber": "run_cucumber(){ npm run cucumber_base -- \"$@\" docassemble/*/data/sources/*.feature --retry 1; }; run_cucumber",
-            "langs": "npm run langs_setup && ./node_modules/.bin/cucumber-js --require ./node_modules/.bin/alkiln-cucumber docassemble/*/data/sources/*_lang*.feature",
-            "langs_setup": "node_modules/.bin/alkiln-langs 'docassemble/*/data/sources/*.feature'",
-            "setup": "node_modules/.bin/alkiln-setup",
-            "takedown": "node_modules/.bin/alkiln-takedown"
-          },
-          "dependencies": {
-            "colors": "1.4.0",
-            "@cucumber/cucumber": "7.3.2",
-            "@suffolklitlab/alkiln": "$ALKILN_VERSION"
-          }
-        }
-        EOF
+        touch package.js
+        cat "${{ github.action_path }}/to_copy_for_users/package.js" > package.js
+      shell: bash
+    # The npm version of ALKiln this uses can only be controlled by the
+    # branch, tag, or commit of the GitHub action because the package-lock.json
+    # hard-codes it for each different npm version.
+    - name: Temporarily copy frozen package-lock.json for secure dependencies
+      run: |
+        touch package-lock.json
+        cat "${{ github.action_path }}/to_copy_for_users/package-lock.json" > package-lock.json
+      shell: bash
+
+    #  cat << EOF > "package.json"
+    #  {
+    #    "scripts": {
+    #      "test": "npm run langs_setup && npm run cucumber -- $@",
+    #      "cucumber_base": "./node_modules/.bin/cucumber-js --require ./node_modules/@suffolklitlab/alkiln/lib/index.js",
+    #      "cucumber": "run_cucumber(){ npm run cucumber_base -- \"$@\" docassemble/*/data/sources/*.feature --retry 1; }; run_cucumber",
+    #      "langs": "npm run langs_setup && ./node_modules/.bin/cucumber-js --require ./node_modules/.bin/alkiln-cucumber docassemble/*/data/sources/*_lang*.feature",
+    #      "langs_setup": "node_modules/.bin/alkiln-langs 'docassemble/*/data/sources/*.feature'",
+    #      "setup": "node_modules/.bin/alkiln-setup",
+    #      "takedown": "node_modules/.bin/alkiln-takedown"
+    #    },
+    #    "dependencies": {
+    #      "colors": "1.4.0",
+    #      "@cucumber/cucumber": "7.3.2",
+    #      "@suffolklitlab/alkiln": "$ALKILN_VERSION"
+    #    }
+    #  }
+    #  EOF
+
+    - name: Temporarily overwrite or create package.json and cucumber config
+      run: |
         # Keep in sync with the cucumber.js in root
         cat << EOF > "cucumber.js"
         module.exports = {
