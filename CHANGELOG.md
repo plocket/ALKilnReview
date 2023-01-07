@@ -41,10 +41,7 @@ Format:
 ### Internal
 - 
 -->
-## [Unreleased]
-### Changed
-- Fix artifacts not being saved in GitHub. See https://github.com/SuffolkLITLab/ALKiln/issues/629.
-- Make internal test folder names a bit simpler and more modular-izable.
+<!-- ## [Unreleased] -->
 
 ## [5.0.2] - 2023-07-20
 ### Fixed
