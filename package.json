@@ -1,12 +1,12 @@
 {
   "name": "@suffolklitlab/alkiln",
-  "version": "4.10.1-pre-cli",
+  "version": "4.11.0",
   "description": "Integrated automated end-to-end testing with docassemble, puppeteer, and cucumber.",
   "main": "lib/index.js",
   "scripts": {
     "test": "npm run unit && npm run langs_setup && npm run cucumber -- $@",
     "cucumber": "./lib/run_cucumber.js",
-    "langs": "npm run langs_setup && ./node_modules/.bin/cucumber-js --require ./lib/index.js docassemble/*/data/sources/*_lang*.feature",
+    "langs": "npm run langs_setup && npm run cucumber",
     "langs_setup": "./lib/utils/langs.js 'docassemble/*/data/sources/*.feature'",
     "langs_local": "npm run langs_setup && npm run local",
     "local": "npm run setup && npm run cucumber; npm run takedown",
