@@ -123,11 +123,17 @@ Scenario: I get the page's JSON
   Given I start the interview at "all_tests"
   Then I get the page's JSON variables and values
 
-@fast @o11 @screenshot
+@fast @o11a @screenshot
 Scenario: I take a screenshot
   Given I start the interview at "all_tests"
   Then I take a screenshot
   Then I take a screenshot named "some-screenshot"
+
+@fast @o11b @screenshot
+Scenario: I take a pic
+  Given I start the interview at "all_tests"
+  Then I take a pic
+  Then I take a pic named "some-pic"
 
 @slow @o12 @accessibility @a11y
 Scenario: I check the pages for accessibility
@@ -151,3 +157,10 @@ Scenario: I check the pages for accessibility
     | button_continue | True |  |
     | buttons_other | button_2 |  |
     | buttons_yesnomaybe | True |  |
+
+@fast @o13 @signature @screenshot
+Scenario: I take a screenshot of the signature
+  Given I start the interview at "test_signature.yml"
+  And I sign
+  And I take a screenshot
+  Then I tap to continue

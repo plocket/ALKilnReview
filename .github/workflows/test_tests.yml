@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [17.x]
+        node-version: [18.x]
 
     env:
       BASE_URL: ${{ secrets.SERVER_URL }}
@@ -34,6 +34,7 @@ jobs:
       SECRET_VAR1: secret-var1-value
       SECRET_VAR2: secret-var2-value
       SECRET_FOR_MISSING_FIELD: secret for missing field
+      _ORIGIN: github
 
     name: Run Puppeteer tests
     steps:
@@ -44,32 +45,32 @@ jobs:
       - name: Set name of artifact folder with date and UTC time
         # https://www.shell-tips.com/linux/how-to-format-date-and-time-in-linux-macos-and-bash/#how-to-format-a-date-in-bash
         run: |
-          echo "ARTIFACT_NAME=alkiln-$(date +'%Y-%m-%d at %Hh%Mm%Ss' -u) UTC" >> $GITHUB_ENV
-          echo "UNIT_TESTS_ARTIFACT_NAME=_alkiln-misc-$(date +'%Y-%m-%d at %Hh%Mm%Ss' -u) UTC" >> $GITHUB_ENV
+          echo "ARTIFACT_NAME=alkiln-$(date +'%Y-%m-%d at %Hh%Mm%Ss' -u)UTC" >> $GITHUB_ENV
+          echo "UNIT_TESTS_ARTIFACT_NAME=_alkiln-misc-$(date +'%Y-%m-%d at %Hh%Mm%Ss' -u)UTC" >> $GITHUB_ENV
       - name: Set languages
         run: echo "EXTRA_LANGUAGES=${{ github.event.inputs.extra_languages }}" >> $GITHUB_ENV
         if: ${{ github.event.inputs.extra_languages != '' }}
       # For the testing repo, the `REPO_URL` is that of a different repo and is created in `env:`
       - run: echo "Repo address is $REPO_URL"
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup environment
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm run setup
-      - run: npm run test -- ${{ github.event.inputs.tags && format('"--tags" "{0}"', github.event.inputs.tags) }}
+      - run: npm run test ${{ github.event.inputs.tags && format('{0}', github.event.inputs.tags) }}
       # Artifacts
       - name: upload unit tests artifacts folder
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         # This will upload even if a previous step has failed
         if: ${{ always() }}
         with:
           name: ${{ env.UNIT_TESTS_ARTIFACT_NAME }}
           path: ./_alkiln-*
       - name: upload integration tests artifacts folder
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: ${{ env.ARTIFACT_NAME }}

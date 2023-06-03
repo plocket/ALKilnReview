@@ -38,7 +38,62 @@ Format:
 ### Security
 - 
 -->
-<!-- ## [Unreleased] -->
+## [Unreleased]
+### Added
+- added additional functionality to the sign method to allow developers to take a name argument to sign on canvas: issue #596
+- A new script: `alkiln-run`, which acts like `npm run cucumber`, but can
+  be run in any directory, not just in an npm package.
+- Additional environment variables and their validation to allow for tests that run on a developer's server/Playground instead of through GitHub. Also, other functionality for that purpose. [Issue #661](https://github.com/SuffolkLITLab/ALKiln/issues/661)
+- Tests for new session_vars behavior and improve previous tests.
+- Adds `npm-shrinkwrap.json`, so installs from npm will have fixed version dependencies
+
+### Changed
+- upgraded cucumber v8.6.0
+- using cucumber's JS API to run tests. For more details on how it works,
+    see [the cucumber-js docs](https://github.com/cucumber/cucumber-js/blob/main/docs/javascript_api.md).
+- the github action no longer runs `npm run XYZ`; it directly calls scripts,
+    e.g. `alkiln-setup`, `alkiln-run`, `alkiln-takedown`
+- don't print the ["publish this cucumber report" message](https://github.com/cucumber/cucumber-js/blob/main/docs/configuration.md#options)
+- Adjusted validation of some environment variables to account for Playground vs. GitHub or local test runs. [Issue #661](https://github.com/SuffolkLITLab/ALKiln/issues/661)
+- Project name prefix now includes ALKiln in it for clarity
+
+### Fixed
+- Projects created in da each have a unique name. https://github.com/SuffolkLITLab/ALKiln/issues/663
+- Shorten path names to try to accommodate limitations of windows systems while still keeping enough useful information to help devs identify the test outputs. https://github.com/SuffolkLITLab/ALKiln/issues/618
+
+### Security
+- Pass docassemble API keys through HTTP headers instead of as parameters.
+  - Parameters to certain HTTP requests are printed directly in docassemble's
+    uWSGI log, leaking API keys to actors with log access on your docassemble
+    server
+
+## [4.11.1] - 2023-03-21
+### Changed
+- Get error data from server errors
+
+## [4.11.0] - 2023-03-13
+### Changed
+- Shorten Axios errors to make them more readable (https://github.com/SuffolkLITLab/ALKiln/pull/632)
+
+## [4.10.4] - 2023-02-15
+### Added
+- Contribution docs
+
+### Fixed
+- #511, couldn't take screenshots of signature pages https://github.com/SuffolkLITLab/ALKiln/issues/511
+
+## [4.10.3] - 2023-01-11
+### Removed
+- Internal - ignore local test output files. Part 2 of the process out of 2.
+
+## [4.10.2] - 2023-01-11
+### Removed
+- Internal - deleted unignored local files (since adding .npmignore). Part 1 of the process out of 2.
+
+## [4.10.1] - 2023-01-07
+### Changed
+- Fix artifacts not being saved in GitHub. See https://github.com/SuffolkLITLab/ALKiln/issues/629.
+- Make internal test folder names a bit simpler and more modular-izable.
 
 
 ## [4.10.1] - 2023-01-07
