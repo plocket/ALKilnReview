@@ -5,15 +5,6 @@ inputs:
   SERVER_URL:
     description: 'The url of your docassemble server. This should be in your GitHub SECRETS or the SECRETS of your org.'
     required: true
-  PLAYGROUND_EMAIL:
-    description: 'The email of your docassemble testing account. This should be in your GitHub SECRETS or the SECRETS of your org.'
-    required: true
-  PLAYGROUND_PASSWORD:
-    description: 'The password of your docassemble testing account. This should be in your GitHub SECRETS or the SECRETS of your org.'
-    required: true
-  PLAYGROUND_ID:
-    description: 'The id of your docassemble testing account. This should be in your GitHub SECRETS or the SECRETS of your org.'
-    required: true
   DOCASSEMBLE_DEVELOPER_API_KEY:
     description: 'API key of the testing account with developer permissions on your docassemble server.'
     required: true
@@ -42,12 +33,9 @@ runs:
       # https://www.shell-tips.com/linux/how-to-format-date-and-time-in-linux-macos-and-bash/#how-to-format-a-date-in-bash
       run: |
         echo "ARTIFACT_NAME=alkiln-$(date +'%Y-%m-%d at %Hh%Mm%Ss' -u)UTC" >> $GITHUB_ENV
-        echo "REPO_URL=https://github.com/SuffolkLITLab/docassemble-AssemblyLine" >> $GITHUB_ENV
-        echo "BRANCH_PATH=main" >> $GITHUB_ENV
+        echo "REPO_URL=${{ github.server_url }}/${{ github.repository }}" >> $GITHUB_ENV
+        echo "BRANCH_PATH=${{ github.ref }}" >> $GITHUB_ENV
         echo "BASE_URL=${{ inputs.SERVER_URL }}" >> $GITHUB_ENV
-        echo "PLAYGROUND_EMAIL=${{ inputs.PLAYGROUND_EMAIL }}" >> $GITHUB_ENV
-        echo "PLAYGROUND_PASSWORD=${{ inputs.PLAYGROUND_PASSWORD }}" >> $GITHUB_ENV
-        echo "PLAYGROUND_ID=${{ inputs.PLAYGROUND_ID }}" >> $GITHUB_ENV
         echo "DOCASSEMBLE_DEVELOPER_API_KEY=${{ inputs.DOCASSEMBLE_DEVELOPER_API_KEY }}" >> $GITHUB_ENV
         echo "ALKILN_VERSION=${{ inputs.ALKILN_VERSION }}" >> $GITHUB_ENV
         echo "MAX_SECONDS_FOR_SETUP=${{ inputs.MAX_SECONDS_FOR_SETUP }}" >> $GITHUB_ENV
@@ -66,16 +54,13 @@ runs:
         node-version: "18"
     - name: Install ALKiln directly from npm
       run: |
-        npm install -g github:SuffolkLITLab/ALKiln#start_server_take_2
+        npm install -g @suffolklitlab/alkiln
       shell: bash
 
     # Run tests
-    - name: "ALKiln: Install project dependencies on server"
-      run: alkiln-startserver
+    - name: "ALKiln: Create a Project and pull the package from GitHub"
+      run: alkiln-setup
       shell: bash
-    #- name: "ALKiln: Create a Project and pull the package from GitHub"
-    #  run: alkiln-setup
-    #  shell: bash
     - name: "ALKiln: Run tests"
       if: ${{ success() }}
       run: alkiln-run ${{ github.event.inputs.tags && format('{0}', github.event.inputs.tags) }}
@@ -83,10 +68,10 @@ runs:
     - run: echo -e "\n\n====ALKiln could not create a project on your server's testing account or pull your package into it. Check the messages above this line.\n\n"
       if: ${{ failure() }}
       shell: bash
-    #- name: "ALKiln: Delete project from docassemble test account"
-    #  if: ${{ always() }}
-    #  run: alkiln-takedown
-    #  shell: bash
+    - name: "ALKiln: Delete project from docassemble test account"
+      if: ${{ always() }}
+      run: alkiln-takedown
+      shell: bash
     
     # Upload artifacts that subscribers can download on the Actions summary page
     - name: "ALKiln: Upload artifacts folder"
