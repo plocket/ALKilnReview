@@ -138,12 +138,13 @@ Scenario: Fail with link with given text does not lead to correct url
   """
   Cannot find a link with the text "Link to external page" leading to http://wrong-url.com.
   """
-  Given I start the interview at "all_tests"
+  Given I start the interview at "all_tests"
   And I tap to continue
-  And I get to "showifs" with this data:
+  And I get to "showifs" with this data:
     | var | value | trigger |
     | double_quote_dict["double_quote_key"]['dq_two'] | true |  |
     | checkboxes_other['checkbox_other_opt_1'] | true |  |
+    | combobox_input | Custom combobox option |  |
     | dropdown_test | dropdown_opt_2 | |
     | radio_yesno | False | false |
     | radio_other | radio_other_opt_3 | |
@@ -151,7 +152,7 @@ Scenario: Fail with link with given text does not lead to correct url
     | text_input | Regular text input field value | |
     | textarea | Multiline text\narea value | |
   Then I arrive at the next page
-  Then I get to "screen features" with this data:
+  Then I get to "screen features" with this data:
     | var | value | trigger |
     | object_checkboxes_test["obj_chkbx_opt_1"] | true | |
     | object_dropdown | obj_opt_2 | |
@@ -168,12 +169,13 @@ Scenario: Fail with link unexpectedly opens in same window
   """
   The link "Link to external page" does NOT open in the same window
   """
-  Given I start the interview at "all_tests"
+  Given I start the interview at "all_tests"
   And I tap to continue
-  And I get to "showifs" with this data:
+  And I get to "showifs" with this data:
     | var | value | trigger |
     | double_quote_dict["double_quote_key"]['dq_two'] | true |  |
     | checkboxes_other['checkbox_other_opt_1'] | true |  |
+    | combobox_input | Custom combobox option |  |
     | dropdown_test | dropdown_opt_2 | |
     | radio_yesno | False | false |
     | radio_other | radio_other_opt_3 | |
@@ -181,7 +183,7 @@ Scenario: Fail with link unexpectedly opens in same window
     | text_input | Regular text input field value | |
     | textarea | Multiline text\narea value | |
   Then I arrive at the next page
-  Then I get to "screen features" with this data:
+  Then I get to "screen features" with this data:
     | var | value | trigger |
     | object_checkboxes_test["obj_chkbx_opt_1"] | true | |
     | object_dropdown | obj_opt_2 | |
@@ -198,12 +200,13 @@ Scenario: Fail with link unexpectedly opens in a new window
   """
   The link "Link: reload the page" does NOT open in a new window
   """
-  Given I start the interview at "all_tests"
+  Given I start the interview at "all_tests"
   And I tap to continue
-  And I get to "showifs" with this data:
+  And I get to "showifs" with this data:
     | var | value | trigger |
     | double_quote_dict["double_quote_key"]['dq_two'] | true |  |
     | checkboxes_other['checkbox_other_opt_1'] | true |  |
+    | combobox_input | Custom combobox option |  |
     | dropdown_test | dropdown_opt_2 | |
     | radio_yesno | False | false |
     | radio_other | radio_other_opt_3 | |
@@ -211,7 +214,7 @@ Scenario: Fail with link unexpectedly opens in a new window
     | text_input | Regular text input field value | |
     | textarea | Multiline text\narea value | |
   Then I arrive at the next page
-  Then I get to "screen features" with this data:
+  Then I get to "screen features" with this data:
     | var | value | trigger |
     | object_checkboxes_test["obj_chkbx_opt_1"] | true | |
     | object_dropdown | obj_opt_2 | |
@@ -229,12 +232,13 @@ Scenario: Fail with link unexpectedly opens in a new window
 #  """
 #  link is broken
 #  """
-#  Given I start the interview at "all_tests"
+#  Given I start the interview at "all_tests"
 #  And I tap to continue
-#  And I get to "showifs" with this data:
+#  And I get to "showifs" with this data:
 #    | var | value | trigger |
 #    | double_quote_dict["double_quote_key"]['dq_two'] | true |  |
 #    | checkboxes_other['checkbox_other_opt_1'] | true |  |
+#    | combobox_input | Custom combobox option |  |
 #    | dropdown_test | dropdown_opt_2 | |
 #    | radio_yesno | False | false |
 #    | radio_other | radio_other_opt_3 | |
@@ -242,7 +246,7 @@ Scenario: Fail with link unexpectedly opens in a new window
 #    | text_input | Regular text input field value | |
 #    | textarea | Multiline text\narea value | |
 #  Then I arrive at the next page
-#  Then I get to "screen features" with this data:
+#  Then I get to "screen features" with this data:
 #    | var | value | trigger |
 #    | button_continue | True |  |
 #    | buttons_other | button_2 |  |
@@ -271,7 +275,7 @@ Scenario: Fail with var not on page
   """
   And the Scenario report should include:
   """
-  Missing variable or variables on page
+  Error on page "
   """
   And I start the interview at "all_tests"
   And I set the var "missing_var_1" to "missing value 1"
@@ -306,7 +310,7 @@ Scenario: Fail with system error after Step using wrong file name as trigger
   Given the final Scenario status should be "failed"
   Given the Scenario report should include:
   """
-  Reference to invalid playground path
+  ERROR: On final attempt to load interview, got
   """
   And I start the interview at "wrong_yaml_filename"
 
@@ -328,10 +332,11 @@ Scenario: I can't match JSON page var to str
   was not equal to the expected value
   """
   Given I start the interview at "all_tests.yml"
-  And I get to "showifs" with this data:
+  And I get to "showifs" with this data:
     | var | value | trigger |
     | double_quote_dict["double_quote_key"]['dq_two'] | true |  |
     | checkboxes_other['checkbox_other_opt_1'] | true |  |
+    | combobox_input | Custom combobox option |  |
     | dropdown_test | dropdown_opt_2 | |
     | radio_yesno | False | false |
     | radio_other | radio_other_opt_3 | |
@@ -351,7 +356,7 @@ Scenario: Fail with wrong email secret name
   """
   email address GitHub SECRET
   """
-  Given I log on with the email "WRONG_EMAIL_NAME" and the password "USER1_PASSWORD"
+  Given I log on with the email "WRONG_EMAIL_NAME" and the password "USER1_PASSWORD"
 
 @fast @rf23 @signin
 Scenario: Fail with wrong password secret name
@@ -360,7 +365,7 @@ Scenario: Fail with wrong password secret name
   """
   password GitHub SECRET
   """
-  Given I sign in with the email "USER1_EMAIL" and the password "WRONG_PASSWORD_NAME"
+  Given I sign in with the email "USER1_EMAIL" and the password "WRONG_PASSWORD_NAME"
 
 @fast @rf24 @signin
 Scenario: Fail with 2 wrong signin secret names
@@ -373,7 +378,7 @@ Scenario: Fail with 2 wrong signin secret names
   """
   password GitHub SECRET
   """
-  Given I sign in with the email "WRONG_EMAIL_NAME" and the password "WRONG_PASSWORD_NAME"
+  Given I sign in with the email "WRONG_EMAIL_NAME" and the password "WRONG_PASSWORD_NAME"
 
 @fast @rf25 @upload
 Scenario: Fail with could not find files 
@@ -398,6 +403,15 @@ Scenario: Fail to find var while keeping value secret
   """
   And I start the interview at "test_secret_vars"
   And I set the var "missing_var" to the secret "SECRET_FOR_MISSING_FIELD"
+
+@fast @rf27
+Scenario: Fail with missing docx
+  Given the final Scenario status should be "failed"
+  And the Scenario report should include:
+  """
+  got "Missing docx template file letter_template.docx"
+  """
+  Then I start the interview at "test_missing_docx.yml"
 
 
 # scope.js
@@ -455,7 +469,14 @@ Scenario: Report still shows page id when I tap to continue without setting any 
     Scenario: Report still shows page id when I tap to continue without setting any fields
     Tags: @reports @fast @rp1
     ---------------
-    Trying to load the interview
+    Trying to load the interview at "
+    """
+  Given the Scenario report should include:
+    """
+    all_tests.yml"
+    """
+  Given the Scenario report should include:
+    """
     screen id: upload-files
     screen id: group-of-complex-fields
           | double_quote_dict['double_quote_key']['dq_two'] | true |  |
@@ -463,6 +484,7 @@ Scenario: Report still shows page id when I tap to continue without setting any 
     screen id: direct-standard-fields
           | checkboxes_yesno | True |  |
           | checkboxes_other['checkbox_other_opt_1'] | true |  |
+          | combobox_input | Custom combobox option |  |
           | dropdown_test | dropdown_opt_2 |  |
           | radio_yesno | False |  |
           | radio_other | radio_other_opt_3 |  |
@@ -481,6 +503,7 @@ Scenario: Report still shows page id when I tap to continue without setting any 
   # Next page
   When I set the var "checkboxes_yesno" to "True"
   And I set the var "checkboxes_other['checkbox_other_opt_1']" to "true"
+  And I set the var "combobox_input" to "Custom combobox option"
   And I set the var "dropdown_test" to "dropdown_opt_2"
   And I set the var "radio_yesno" to "False"
   And I set the var "radio_other" to "radio_other_opt_3"
@@ -521,16 +544,17 @@ Scenario: Report lists unused table rows
           | extra_7 | extra 7 |  |
     """
   And I start the interview at "all_tests"
-  And I get to "direct standard fields" with this data:
+  And I get to "direct standard fields" with this data:
     | var | value | trigger |
     | double_quote_dict["double_quote_key"]['dq_two'] | true |  |
     | single_quote_dict['single_quote_key']['sq_two'] | true |  |
     | extra_out_of_alphabetical_order | extra 1 |  |
     | extra_2 | extra 2 |  |
-  And I get to "showifs" with this data:
+  And I get to "showifs" with this data:
     | var | value | trigger |
     | extra_3 | extra 3 |  |
     | checkboxes_other['checkbox_other_opt_1'] | true |  |
+    | combobox_input | Custom combobox option |  |
     | dropdown_test | dropdown_opt_2 | |
     | radio_yesno | False | false |
     | extra_4 | extra 4 |  |
@@ -538,7 +562,7 @@ Scenario: Report lists unused table rows
     | text_input | Regular text input field value | |
     | textarea | Multiline text\narea value | |
     | extra_5 | extra 5 |  |
-  Then I get to "screen features" with this data:
+  Then I get to "screen features" with this data:
     | var | value | trigger |
     | object_checkboxes_test["obj_chkbx_opt_1"] | true | |
     | object_dropdown | obj_opt_2 | |
@@ -554,7 +578,7 @@ Scenario: Sign in to server successfully
   """
   Signed in
   """
-  Given I sign in with the email "USER1_EMAIL" and the password "USER1_PASSWORD"
+  Given I sign in with the email "USER1_EMAIL" and the password "USER1_PASSWORD"
 
 @rp4 @table
 Scenario: Passes with no warning when `there_is_another | False` is in a table.
@@ -567,7 +591,7 @@ Scenario: Passes with no warning when `there_is_another | False` is in a table.
   And the max seconds for each step is 5 seconds
   And I set the var "x.there_are_any" to "True"
   And I set the var "x[i].name.first" to "AnyPerson1"
-  And I tap to continue
+  And I tap to Continue
   And I get to "person name" with this data:
     | var | value | trigger |
     | x[i].name.first | AnyPerson2 | there_are_any_people[1].name.first |

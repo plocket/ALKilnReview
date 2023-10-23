@@ -21,6 +21,8 @@ Scenario: I set various values
   When I set the var "checkboxes_yesno" to "True"
   And I set the var "checkboxes_other['checkbox_other_opt_1']" to "true"
   And I set the var "dropdown_test" to "dropdown_opt_2"
+  # Combobox custom value is set the same as an actual option, like a text field. Only need to test one.
+  And I set the var "combobox_input" to "Custom combobox option"
   And I set the var "radio_yesno" to "False"
   And I set the var "radio_other" to "radio_other_opt_3"
   And I set the var "text_input" to "Regular text input field value"
@@ -38,6 +40,7 @@ Scenario: I set various values
   And I set the var "showif_radio_other" to "showif_radio_multi_2"
   And I set the var "showif_text_input" to "Show if text input value"
   And I set the var "showif_textarea" to "Show if\nmultiline text\narea value"
+  And I set the var "showif_combobox_input" to "Showif custom combobox value"
   And I set the var "showif_dropdown" to "showif_dropdown_1"
   When I tap to continue
   # Next page
@@ -162,11 +165,3 @@ Scenario: Fails as it doesn't try to 'continue' with a restart button
   And I get to "doesnt exist" with this data:
     | var | value | trigger |
     | user_choice | wrong | |
-
-@fast @i7 @signature @screenshot
-Scenario: I take a screenshot of the signature
-  Given I start the interview at "test_signature.yml"
-  When I sign with the name "David"
-  And I take a screenshot
-  Then I tap to continue
-  Then the question id should be "the end"
