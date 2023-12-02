@@ -18,6 +18,7 @@ inputs:
   MAX_SECONDS_FOR_SETUP:
     description: "Amount of time to give the Project to upload your package's GitHub code."
     required: false
+    # Default in code below is 30 because it's needed by installation
   SERVER_RELOAD_TIMEOUT_SECONDS:
     description: "Max amount of time to give the server to reload if it needs to"
     required: false
@@ -47,13 +48,15 @@ runs:
         echo "ARTIFACT_NAME=alkiln-$(date +'%Y-%m-%d at %Hh%Mm%Ss' -u)UTC" >> $GITHUB_ENV
         echo "REPO_URL=${{ github.server_url }}/${{ github.repository }}" >> $GITHUB_ENV
         echo "BRANCH_PATH=${{ github.ref }}" >> $GITHUB_ENV
-        echo "BASE_URL=${{ inputs.SERVER_URL }}" >> $GITHUB_ENV
+        echo "BASE_URL=${${{ inputs.SERVER_URL }}%/}" >> $GITHUB_ENV
         echo "DOCASSEMBLE_DEVELOPER_API_KEY=${{ inputs.DOCASSEMBLE_DEVELOPER_API_KEY }}" >> $GITHUB_ENV
         echo "ALKILN_VERSION=${{ inputs.ALKILN_VERSION }}" >> $GITHUB_ENV
-        echo "MAX_SECONDS_FOR_SETUP=${{ inputs.MAX_SECONDS_FOR_SETUP }}" >> $GITHUB_ENV
         echo "SERVER_RELOAD_TIMEOUT_SECONDS=${{ inputs.SERVER_RELOAD_TIMEOUT_SECONDS }}" >> $GITHUB_ENV
+        # Default max value of 30 seconds for setup
+        echo "MAX_SECONDS_FOR_SETUP=${{ inputs.MAX_SECONDS_FOR_SETUP || env.MAX_SECONDS_FOR_SETUP || 30 }}" >> $GITHUB_ENV
         echo "_ORIGIN=github" >> $GITHUB_ENV
       shell: bash
+    - run: echo TEST is ${{ env.TEST }}
     - name: "ALKiln setup info: confirm environment variables"
       run: |
         # ALKiln setup info: confirm environment variables
@@ -99,6 +102,42 @@ runs:
       run: echo -e "\n\n====\nALKiln ERROR - could not install the package on the temporary GitHub docassemble server. Check the steps above this line.\n\n"
       if: ${{ inputs.INSTALL_METHOD == 'server' && failure() }}
       shell: bash
+
+    # wait for server to reload if necessary
+    - name: "ALKiln info: Wait for modules to install"
+      if: ${{ success() }}
+      shell: bash
+      run: |
+        # ALKiln: Wait for project to install
+        echo MAX_SECONDS_FOR_SETUP is ${{ env.MAX_SECONDS_FOR_SETUP }}
+
+        # Reset the SECONDS variable, a built-in bash variable that
+        # increments itself
+        SECONDS=0
+        sleep_time=5
+
+        response="start"
+        while [[ $response != *"200"* ]]; do
+          echo "ALKiln: Time elapsed: $SECONDS seconds"
+
+          # Check if max seconds till loading has passed
+          if [[ $SECONDS -ge ${{ env.MAX_SECONDS_FOR_SETUP }} ]]; then
+            echo "ALKiln Error: Timed out waiting for the server to reload after installing the package. If you want to give your server more timem to reload, set the MAX_SECONDS_FOR_SETUP input for this action to a higher value than ${{ env.MAX_SECONDS_FOR_SETUP }}."
+            exit 1
+          fi
+
+          # Ask the server if it's ready
+          response=$(curl -o /dev/null -s -w "%{http_code}\n" ${{ env.BASE_URL }}/health_check?ready=1)
+          echo "ALKiln: server response to health_check is $response"
+
+          # If the server is ready, finish, otherwise pause and then try again
+          if [[ $response == *"200"* ]]; then
+            echo "ALKiln Success! The docassemble server has uploaded your package!"
+          else
+            echo "ALKiln: Your package upload not yet finished. This is try number $(( $SECONDS / $sleep_time )) of $(( ${{ env.MAX_SECONDS_FOR_SETUP }} / $sleep_time )). Will check again in $sleep_time seconds."
+            sleep $sleep_time
+          fi
+        done
 
     # run tests
     - name: "ALKiln info: Run tests"

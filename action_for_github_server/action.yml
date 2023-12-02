@@ -46,7 +46,8 @@ runs:
       - name: "ALKiln GitHub server - Set environment variables"
         run: |
           echo "DA_ADMIN_API_KEY=abcd1234abcd1234abcd5678abdc5678" >> $GITHUB_ENV
-          echo "MAX_SECONDS_FOR_DOCKER=${{ inputs.MAX_SECONDS_FOR_DOCKER }}" >> $GITHUB_ENV
+          # Default value of 600 seconds for docker
+          echo "MAX_SECONDS_FOR_DOCKER=${{ inputs.MAX_SECONDS_FOR_DOCKER || env.MAX_SECONDS_FOR_DOCKER || 600}}" >> $GITHUB_ENV
           echo "DA_ADMIN_EMAIL=admin@example.com" >> $GITHUB_ENV
           # Login will fail if this is "password"
           echo "DA_ADMIN_PASSWORD=@123abcdefg" >> $GITHUB_ENV
@@ -75,7 +76,7 @@ runs:
         shell: bash
 
       # GitHub masks secret values like the config, so we don't really
-      # need to stop that yet, but users may start using variables, so
+      # need to stop that yet, but users may start using GitHub "variables", so
       # a question: If in future we allow variables instead of just secrets,
       # should we let those be visible or prevent them along with the docker logs?
 
@@ -145,7 +146,8 @@ runs:
         run: |
           # ALKiln GitHub server - Wait for server to start
 
-          # Reset the SECONDS variable
+          # Reset the SECONDS variable, a built-in bash variable that
+          # increments itself
           SECONDS=0
           # Wait 1 minute before pinging the server constantly
           sleep 60
@@ -155,14 +157,14 @@ runs:
             echo "ALKiln GitHub server - Time elapsed: $SECONDS seconds"
 
             # Check if max seconds till loading has passed
-            if [[ $SECONDS -ge $MAX_SECONDS_FOR_DOCKER ]]; then
-              echo "ALKiln GitHub server Error: Timed out waiting for docker container to serve the site. If you want to give your docker container more timem to install, set the MAX_SECONDS_FOR_DOCKER input for this action."
+            if [[ $SECONDS -ge ${{ env.MAX_SECONDS_FOR_DOCKER }} ]]; then
+              echo "ALKiln GitHub server Error: Timed out waiting for docker container to serve the site. If you want to give your docker container more timem to install, set the MAX_SECONDS_FOR_DOCKER input for this action to a higher value than ${{ env.MAX_SECONDS_FOR_DOCKER }}."
               exit 1
             fi
 
             # Set the variable to a new string value in each iteration
             response=$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:80/health_check?ready=1)
-            echo "ALKiln GitHub server - response is $response"
+            echo "ALKiln GitHub server - response to health_check is $response"
 
             # Check if the string includes the desired text
             if [[ $response == *"200"* ]]; then
