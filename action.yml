@@ -86,6 +86,7 @@ runs:
       run: |
         # ALKiln setup info: Create a Project and install the package from GitHub
         pip3 install docassemblecli
+        # Installs to the Playground via the node commandline
         alkiln-setup
       shell: bash
     - name: "ALKiln setup ERROR"
@@ -96,6 +97,8 @@ runs:
     # Server installations - find folders and save session vars
     - name: "ALKiln setup info: Install the GitHub package onto the server"
       if: ${{ inputs.INSTALL_METHOD == 'server' }}
+      # Checks the repo package folder and saves some env vars
+      # The user should have done the actual package installation earlier when creating the server
       run: alkiln-server-install
       shell: bash
     - name: "ALKiln setup ERROR"
@@ -118,23 +121,23 @@ runs:
 
         response="start"
         while [[ $response != *"200"* ]]; do
-          echo "ALKiln: Time elapsed: $SECONDS seconds"
+          echo "ALKiln setup: Time elapsed: $SECONDS seconds"
 
           # Check if max seconds till loading has passed
           if [[ $SECONDS -ge ${{ env.MAX_SECONDS_FOR_SETUP }} ]]; then
-            echo "ALKiln Error: Timed out waiting for the server to reload after installing the package. If you want to give your server more timem to reload, set the MAX_SECONDS_FOR_SETUP input for this action to a higher value than ${{ env.MAX_SECONDS_FOR_SETUP }}."
+            echo "ALKiln setup Error: Timed out waiting for the server to reload after installing the package. If you want to give your server more timem to reload, set the MAX_SECONDS_FOR_SETUP input for this action to a higher value than ${{ env.MAX_SECONDS_FOR_SETUP }}."
             exit 1
           fi
 
           # Ask the server if it's ready
           response=$(curl -o /dev/null -s -w "%{http_code}\n" ${{ env.BASE_URL }}/health_check?ready=1)
-          echo "ALKiln: server response to health_check is $response"
+          echo "ALKiln setup: server response to health_check is $response"
 
           # If the server is ready, finish, otherwise pause and then try again
           if [[ $response == *"200"* ]]; then
             echo "ALKiln Success! The docassemble server has uploaded your package!"
           else
-            echo "ALKiln: Your package upload not yet finished. This is try number $(( $SECONDS / $sleep_time )) of $(( ${{ env.MAX_SECONDS_FOR_SETUP }} / $sleep_time )). Will check again in $sleep_time seconds."
+            echo "ALKiln setup: Your package upload is not yet finished. This is try number $(( $SECONDS / $sleep_time )) of $(( ${{ env.MAX_SECONDS_FOR_SETUP }} / $sleep_time )). Will check again in $sleep_time seconds."
             sleep $sleep_time
           fi
         done
