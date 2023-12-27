@@ -5,7 +5,7 @@ Feature: Observational steps
 
 @fast @o1
 Scenario: I observe things on a single page when I arrive
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I tap to continue
   Then the question id should be "group of complex fields"
   And I should see the phrase "Some complex fields"
@@ -17,7 +17,7 @@ Scenario: I observe things on a single page when I arrive
 @fast @o2
 Scenario: I see user errors.
 #  They're everywhere.  Some don't even know they are errors.
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I tap to continue
   And I tap to continue
   And I tap to continue
@@ -26,11 +26,11 @@ Scenario: I see user errors.
 
 @fast @o3
 Scenario: I can include .yml in the filename
-  Given I start the interview at "all_tests.yml"
+  Given I start the interview at "wrong"
 
 @slow @o4
 Scenario: I check navigation
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I tap to continue
   And I get to "showifs" with this data:
     | var | value | trigger |
@@ -56,7 +56,7 @@ Scenario: I check navigation
 
 @fast @o4
 Scenario: Test "Then I don't continue" with a single quote
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I tap to continue
   And I tap to continue
   And I tap to continue
@@ -65,7 +65,7 @@ Scenario: Test "Then I don't continue" with a single quote
 
 @fast @o5
 Scenario: Test "Then I cannot continue"
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I tap to continue
   And I tap to continue
   And I tap to continue
@@ -74,7 +74,7 @@ Scenario: Test "Then I cannot continue"
 
 @fast @o6
 Scenario: Test "Then I do not continue"
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I tap to continue
   And I tap to continue
   And I tap to continue
@@ -83,7 +83,7 @@ Scenario: Test "Then I do not continue"
 
 @fast @o7
 Scenario: Test "Then I can’t continue" with an apostrophe
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I tap to continue
   And I tap to continue
   And I tap to continue
@@ -92,7 +92,7 @@ Scenario: Test "Then I can’t continue" with an apostrophe
 
 @fast @o8
 Scenario: Test "Then I don’t continue" with an apostrophe
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I tap to continue
   And I tap to continue
   And I tap to continue
@@ -101,7 +101,7 @@ Scenario: Test "Then I don’t continue" with an apostrophe
 
 @fast @o9 @json
 Scenario: I can match JSON page vars
-  Given I start the interview at "test_json.yml"
+  Given I start the interview at "wrong"
   Then the text in the JSON variable "multiline_val" should be
   """
   This string contains.
@@ -120,18 +120,18 @@ Scenario: I can match JSON page vars
 # Maybe this one should be in the report tests (as well?)
 @fast @o10 @json
 Scenario: I get the page's JSON
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   Then I get the page's JSON variables and values
 
 @fast @o11a @screenshot
 Scenario: I take a screenshot
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   Then I take a screenshot
   Then I take a screenshot named "some-screenshot"
 
 @fast @o11b @screenshot
 Scenario: I take a pic
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   Then I take a pic
   Then I take a pic named "some-pic"
 
@@ -140,7 +140,7 @@ Scenario: I take a pic
 # TODO: Create an actual failing a11y test, maybe using custom html
 @slow @o12 @accessibility @a11y
 Scenario: I check the pages for accessibility
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I check all pages for accessibility issues
   And I tap to continue
   Then I get to "screen features" with this data:
@@ -164,14 +164,14 @@ Scenario: I check the pages for accessibility
 
 @fast @o13 @signature @screenshot
 Scenario: I take a screenshot of the signature
-  Given I start the interview at "test_signature.yml"
+  Given I start the interview at "wrong"
   And I sign
   And I take a screenshot
   Then I tap to continue
 
 @fast @o14 @verify
 Scenario: I can match JSON page var to str
-  Given I start the interview at "all_tests.yml"
+  Given I start the interview at "wrong"
   And I get to "showifs" with this data:
     | var | value | trigger |
     | double_quote_dict["double_quote_key"]['dq_two'] | true |  |
@@ -203,14 +203,14 @@ Scenario: I can match JSON page var to str
 
 @fast @o15 @date @time
 Scenario: I enter the date and time
-  Given I start the interview at "test_date_and_time.yml"
+  Given I start the interview at "wrong"
   And I get to "the end" with this data:
     | date_input | today | |
     | time_input | 12:34 PM | |
 
 @fast @o16 @signature @screenshot
 Scenario: I take a screenshot of the signature
-  Given I start the interview at "test_signature.yml"
+  Given I start the interview at "wrong"
   When I sign with the name "David"
   And I take a screenshot
   Then I tap to continue
@@ -218,7 +218,7 @@ Scenario: I take a screenshot of the signature
 
 @slow @o17
 Scenario: I compare the same PDFs
-  Given I start the interview at "test_pdf"
+  Given I start the interview at "wrong"
   Then the question id should be "proxy vars"
   When I set the var "x[i].name.first" to "Proxyname1"
   And I tap to continue
@@ -249,7 +249,7 @@ Scenario: I compare different PDFs
   """
   -  diff
   """
-  Given I start the interview at "test_pdf"
+  Given I start the interview at "wrong"
   Then the question id should be "proxy vars"
   When I set the var "x[i].name.first" to "Proxyname1 diff"
   And I tap to continue

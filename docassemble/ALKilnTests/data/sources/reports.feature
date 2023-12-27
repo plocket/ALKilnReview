@@ -21,7 +21,7 @@ Feature: Reports show the right things
 #  """
 #  Did not find any question id.
 #  """
-#  And I start the interview at "all_tests"
+#  And I start the interview at "wrong"
 #  Then the question id should be "any question id"
 
 @fast @rf3 @error
@@ -31,7 +31,7 @@ Scenario: Fail with wrong page id
   """
   The question id was supposed to be
   """
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   Then the question id should be "wrong question id"
 
 @fast @rf4 @error
@@ -41,7 +41,7 @@ Scenario: Fail with a missing phrase
   """
   SHOULD be on this page, but it's NOT
   """
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   Then I SHOULD see the phrase "phrase missing"
 
 @fast @rf5 @error
@@ -51,7 +51,7 @@ Scenario: Fail with incorrectly present phrase
   """
   should NOT be on this page, but it IS here
   """
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   Then I should NOT see the phrase "e"
 
 @fast @rf6 @error
@@ -61,7 +61,7 @@ Scenario: Fail with missing element id
   """
   No element on this page has the ID
   """
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   Then an element should have the id "wrong element id"
 
 @fast @rf7 @error
@@ -71,7 +71,7 @@ Scenario: Fail with unexpectedly able to continue
   """
   The page should have stopped the user from continuing, but the user was able to continue.
   """
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   Then the question id should be "upload files"
   And I tap to continue
   Then I can't continue
@@ -83,7 +83,7 @@ Scenario: Fail with missing error message
   """
   No error message was found on the page
   """
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   And I will be told an answer is invalid
 
 ## Not sure how to trigger this at the moment
@@ -94,7 +94,7 @@ Scenario: Fail with missing error message
 #  """
 #  The error was a system error, not an error message to the user.
 #  """
-#  And I start the interview at "all_tests"
+#  And I start the interview at "wrong"
 #  And I will be told an answer is invalid
 
 # TODO: Check this with validation code failure too
@@ -105,7 +105,7 @@ Scenario: Fail with was unexpectedly not able to continue for invalid field inpu
   """
   User did not arrive at the next page.
   """
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   And I tap to continue
   And I tap to continue
   And I tap to continue
@@ -118,7 +118,7 @@ Scenario: Fail with link text not visible
   """
   Cannot find a link with the text
   """
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   Then I should see the link "Missing link"
 
 @fast @rf12 @error
@@ -128,7 +128,7 @@ Scenario: Fail with missing link with url
   """
   Cannot find a link to
   """
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   Then I should see the link to "http://missing-url.com"
 
 @slow @rf13 @error @table
@@ -138,7 +138,7 @@ Scenario: Fail with link with given text does not lead to correct url
   """
   Cannot find a link with the text "Link to external page" leading to http://wrong-url.com.
   """
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I tap to continue
   And I get to "showifs" with this data:
     | var | value | trigger |
@@ -169,7 +169,7 @@ Scenario: Fail with link unexpectedly opens in same window
   """
   The link "Link to external page" does NOT open in the same window
   """
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I tap to continue
   And I get to "showifs" with this data:
     | var | value | trigger |
@@ -200,7 +200,7 @@ Scenario: Fail with link unexpectedly opens in a new window
   """
   The link "Link: reload the page" does NOT open in a new window
   """
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I tap to continue
   And I get to "showifs" with this data:
     | var | value | trigger |
@@ -232,7 +232,7 @@ Scenario: Fail with link unexpectedly opens in a new window
 #  """
 #  link is broken
 #  """
-#  Given I start the interview at "all_tests"
+#  Given I start the interview at "wrong"
 #  And I tap to continue
 #  And I get to "showifs" with this data:
 #    | var | value | trigger |
@@ -277,7 +277,7 @@ Scenario: Fail with var not on page
   """
   Error on page "
   """
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   And I set the var "missing_var_1" to "missing value 1"
 
 @fast @rf18 @error
@@ -287,7 +287,7 @@ Scenario: Fail with missing term with the given text
   """
   The term "wrong term" seems to be missing
   """
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   Then I tap the defined text link "wrong term"
 
 @fast @rf19 @error
@@ -297,7 +297,7 @@ Scenario: Fail with cannot find missing document
   """
   Cannot find a link to that document
   """
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   Then I download "missing-doc.pdf"
 
 
@@ -315,7 +315,7 @@ Scenario: Fail with system error after Step using wrong file name as trigger
   """
   ERROR: On final attempt to load interview
   """
-  And I start the interview at "wrong_yaml_filename"
+  And I start the interview at "wrong"
 
 ## Not sure how to trigger this. I think we'd need the server to be down.
 #@fast @rf21 @error
@@ -325,7 +325,7 @@ Scenario: Fail with system error after Step using wrong file name as trigger
 #  """
 #  The interview at ${ interview_url } did not load after
 #  """
-#  And I start the interview at "wrong_yaml_filename"
+#  And I start the interview at "wrong"
 
 @fast @rf22 @table
 Scenario: I can't match JSON page var to str
@@ -334,7 +334,7 @@ Scenario: I can't match JSON page var to str
   """
   was not equal to the expected value
   """
-  Given I start the interview at "all_tests.yml"
+  Given I start the interview at "wrong"
   And I get to "showifs" with this data:
     | var | value | trigger |
     | double_quote_dict["double_quote_key"]['dq_two'] | true |  |
@@ -390,7 +390,7 @@ Scenario: Fail with could not find files
   """
   ALKiln could not find "nonexistant1.pdf", "nonexistant2.pdf"
   """
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I upload "nonexistant1.pdf, nonexistant2.pdf" to "upload_files_visible"
 
 @fast @rf26 @secret @error
@@ -404,7 +404,7 @@ Scenario: Fail to find var while keeping value secret
   """
   For security, ALKiln will avoid creating a picture of the page for this error.
   """
-  And I start the interview at "test_secret_vars"
+  And I start the interview at "wrong"
   And I set the var "missing_var" to the secret "SECRET_FOR_MISSING_FIELD"
 
 @fast @rf27
@@ -414,7 +414,7 @@ Scenario: Fail with missing docx
   """
   got "Missing docx template file letter_template.docx"
   """
-  Then I start the interview at "test_missing_docx.yml"
+  Then I start the interview at "wrong"
 
 
 # scope.js
@@ -436,7 +436,7 @@ Scenario: Warn when there are too many names
   """
   The name "Uli Udo User Sampson Jr" has more than 4 parts, but 4 is the maximum allowed. The test will set the name to "Uli Udo User Jr"
   """
-  Given I start the interview at "AL_tests"
+  Given I start the interview at "wrong"
   And I set the name of "users[0]" to "Uli Udo User Sampson Jr"
   And I tap to continue
 
@@ -447,7 +447,7 @@ Scenario: Warns about invalid `there_is_another | True` is in a table.
   """
   The attribute `.there_is_another` is invalid in story table tests
   """
-  Given I start the interview at "test_loops.yml"
+  Given I start the interview at "wrong"
   And the max seconds for each step is 5 seconds
   And I set the var "x.there_are_any" to "True"
   And I set the var "x[i].name.first" to "AnyPerson1"
@@ -496,7 +496,7 @@ Scenario: Report still shows page id when I tap to continue without setting any 
     screen id: showifs
 
     """
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   And I tap to continue
   # Next page
   And I set the var "double_quote_dict['double_quote_key']['dq_two']" to "true"
@@ -546,7 +546,7 @@ Scenario: Report lists unused table rows
           | extra_6 | extra 6 |  |
           | extra_7 | extra 7 |  |
     """
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   And I get to "direct standard fields" with this data:
     | var | value | trigger |
     | double_quote_dict["double_quote_key"]['dq_two'] | true |  |
@@ -590,7 +590,7 @@ Scenario: Passes with no warning when `there_is_another | False` is in a table.
   """
   The attribute `.there_is_another` is invalid in story table tests
   """
-  Given I start the interview at "test_loops.yml"
+  Given I start the interview at "wrong"
   And the max seconds for each step is 5 seconds
   And I set the var "x.there_are_any" to "True"
   And I set the var "x[i].name.first" to "AnyPerson1"

@@ -6,20 +6,20 @@ Steps that establish things about the state of the test
 
 @slow @e1 @wait
 Scenario: I am able to set a custom wait time that allows steps to run longer than the half minute default
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And the max seconds for each step in this scenario is 40
   And I wait 35 seconds
 
 @slow @e2 @wait
 Scenario: I am able to set a custom wait time before an interview has been loaded
   Given the max seconds for each step in this scenario is 40
-  And I start the interview at "all_tests"
+  And I start the interview at "wrong"
   And I wait 35 seconds
 
 @fast @e3 @urlargs
 Scenario: Interview name includes url args
-  Given I start the interview at "url_args.yml&from=theinternets&random=zoo"
-  Then I should see the phrase "zoo"
+  Given I start the interview at "wrong"
+  Then I should see the phrase "zoo"
 
 @slow @e4 @wait_first
 Scenario: I can wait as a first step in a test
@@ -28,13 +28,13 @@ Scenario: I can wait as a first step in a test
 @slow @e5 @wait_first
 Scenario: Interview name includes url args with a wait
   Given I wait 1 second
-  Then I start the interview at "url_args.yml&from=theinternets&random=zoo"
+  Then I start the interview at "wrong"
   Then I should see the phrase "zoo"
 
 @fast @e6 @signin
 Scenario: I sign in
-  Given I sign in with the email "USER1_EMAIL" and the password "USER1_PASSWORD"
-  And I start the interview at "all_tests"
+  Given I sign in with the email "wrong" and the password "USER1_PASSWORD"
+  And I start the interview at "wrong"
 
 @fast @e7 @arbitraryurl
 Scenario: I want to go to a full arbitrary url
@@ -43,8 +43,8 @@ Scenario: I want to go to a full arbitrary url
   """
   Trying to load the interview at "https://apps-test.suffolklitlab.org/start/demo/questions"
   """
-  Given I start the interview at "https://apps-test.suffolklitlab.org/start/demo/questions"
-  Then I should see the phrase "What language do you speak?"
+  Given I start the interview at "https://apps-test.suffolklitlab.org/start/demo/questions"
+  Then I should see the phrase "What language do you speak?"
 
 # WARNING: This Scenario may fail if the file moves or changes too much
 @fast @failing @e8 @rfe8 @arbitraryurl

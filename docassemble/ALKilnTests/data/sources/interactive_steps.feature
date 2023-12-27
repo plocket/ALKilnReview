@@ -5,7 +5,7 @@ Feature: Interactive steps
 
 @slow @i1
 Scenario: I set various values
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   Then the question id should be "upload files"
   When I set the var "upload_files_visible" to "some_png_1.png, some_png_2.png"
   And I set the var "show_upload" to "True"
@@ -105,7 +105,7 @@ Scenario: handles settings from Github secrets
   """
   The GitHub SECRET "SECRET_NOT_THERE" doesn't exist
   """
-  Given I start the interview at "test_secret_vars"
+  Given I start the interview at "wrong"
   When I set the var "first_text_entry" to the secret "SECRET_VAR1"
   And I tap to continue
   Then I see the phrase "secret-var1-value"
@@ -118,7 +118,7 @@ Scenario: handles settings from Github secrets
 
 @i3 @tap-elements @tabs
 Scenario: tap tabs and tap and wait
-  Given I start the interview at "test_taps"
+  Given I start the interview at "wrong"
   And I tap the "Tests-first_template-tab" tab
   Then I see the phrase "Mechanics"
   And I tap the "Tests-second_template-tab" tab
@@ -135,12 +135,12 @@ Scenario: tap element with an error
   """
   is there a typo?
   """
-  Given I start the interview at "test_taps"
+  Given I start the interview at "wrong"
   And I tap the "Tests-not_there-tab" tab
 
 @i5 @decoding-test @object-multiselect
 Scenario: Base64 encoded corner cases are decoded correctly
-  Given I start the interview at "test_decoding"
+  Given I start the interview at "wrong"
   And I get to "end screen" with this data:
     | var | value | trigger |
     | object_multiselect_test['obj_opt_1'] | True | |
@@ -163,14 +163,14 @@ Scenario: Fails as it doesn't try to 'continue' with a restart button
   The test got stuck on "kickout-screen"
   """
   Given the max seconds for each step in this scenario is 10
-  Given I start the interview at "test_kickout"
+  Given I start the interview at "wrong"
   And I get to "doesnt exist" with this data:
     | var | value | trigger |
     | user_choice | wrong | |
 
 @i7 @tap-selector @tabs
 Scenario: tap selectors with & without navigating
-  Given I start the interview at "test_taps"
+  Given I start the interview at "wrong"
   When I tap the "#Tests-first_template-tab" element and stay on the same page
   And I wait .6 seconds
   Then I see the phrase "Mechanics"

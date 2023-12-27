@@ -8,4 +8,4 @@ The tests in this file should cover
 
 @example_scenario_tag
 Scenario: Server finishes reloading
-  Given I start the interview at "test"
+  Given I start the interview at "wrong"

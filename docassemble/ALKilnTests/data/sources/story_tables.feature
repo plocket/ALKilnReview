@@ -6,7 +6,7 @@ NOTE:
 
 @fast @st1 @mixed
 Scenario: Proxy and regular vars are mixed
-  Given I start the interview at "AL_tests"
+  Given I start the interview at "wrong"
   And I get to "end" with this data:
     | var | value | trigger |
     | users[0].name.first | Uli1 | users[0].name.first |
@@ -33,7 +33,7 @@ Covers story table tests for:
 - [x] Nested hidden fields listed out of order
 - [x] Continue button field listed before unrequired fields
 
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I get to "the end" with this data:
     | var | value | trigger |
     | direct_showifs | True |  |
@@ -77,7 +77,7 @@ Covers story table tests for:
 
 @fast @st3 @quotes
 Scenario: Story table accidentally uses the opposite double or single quotes
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I get to "direct standard fields" with this data:
     | var | value | trigger |
     | double_quote_dict['double_quote_key']["dq_two"] | true |  |
@@ -85,7 +85,7 @@ Scenario: Story table accidentally uses the opposite double or single quotes
 
 @fast @st4 @upload
 Scenario: I upload files with a table
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I get to "group of complex fields" with this data:
     | var | value | trigger |
     | upload_files_visible | some_png_1.png, some_png_2.png |  |
@@ -94,7 +94,7 @@ Scenario: I upload files with a table
 
 @slow @st5 @loops
 Scenario: 0 target_number for there_are_any and target_number lists, 1 for there_is_another
-  Given I start the interview at "test_loops.yml"
+  Given I start the interview at "wrong"
   And I get to "end" with this data:
     | var | value | trigger |
     | x.target_number | 0 | there_are_any_people.target_number |
@@ -107,7 +107,7 @@ Scenario: 0 target_number for there_are_any and target_number lists, 1 for there
 
 @slow @st6 @loops
 Scenario: target_number 2 for there_are_any, there_is_another, and target_number lists
-  Given I start the interview at "test_loops.yml"
+  Given I start the interview at "wrong"
   And I take a screenshot
   And I get to "end" with this data:
     | var | value | trigger |
@@ -126,7 +126,7 @@ Scenario: target_number 2 for there_are_any, there_is_another, and target_number
 
 @slow @st7 @loops
 Scenario: target_number 1 for all people lists
-  Given I start the interview at "test_loops.yml"
+  Given I start the interview at "wrong"
   And I take a screenshot
   And I get to "end" with this data:
     | var | value | trigger |

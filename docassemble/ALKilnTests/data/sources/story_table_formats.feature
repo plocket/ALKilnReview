@@ -17,7 +17,7 @@ NOTE:
 ## TODO: Test og table with `trigger` col added?
 #@fast @stf1
 #Scenario: Table is format 1 (og three cols)
-#  Given I start the interview at "all_tests"
+#  Given I start the interview at "wrong"
 #  And I get to "showifs" with this data:
 #    | var | choice | value |
 #    | checkboxes_other['checkbox_other_opt_1'] |  | true |
@@ -31,7 +31,7 @@ NOTE:
 #
 #@fast @stf2
 #Scenario: Table is format 2 (no trigger column)
-#  Given I start the interview at "all_tests"
+#  Given I start the interview at "wrong"
 #  And I get to "showifs" with this data:
 #    | var | value | checked |
 #    | checkboxes_other['checkbox_other_opt_2'] | true |  |
@@ -46,7 +46,7 @@ NOTE:
 # TODO: Only go up to the x[i] pages
 @slow @stf3
 Scenario: Table has trigger column
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I get to "showifs" with this data:
     | var | value | trigger |
     | double_quote_dict["double_quote_key"]['dq_two'] | true |  |
@@ -65,7 +65,7 @@ Scenario: Table has trigger column
 # TODO: Only go up to the x[i] pages
 @slow @stf4
 Scenario: Table MISSING trigger column
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I get to "showifs" with this data:
     | var | value |
     | double_quote_dict["double_quote_key"]['dq_two'] | true |
@@ -81,7 +81,7 @@ Scenario: Table MISSING trigger column
 
 @fast @stf5
 Scenario: Table has no header row, has trigger column
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I get to "showifs" with this data:
     | double_quote_dict["double_quote_key"]['dq_two'] | true |  |
     | checkboxes_other['checkbox_other_opt_1'] | true |  |
@@ -98,7 +98,7 @@ Scenario: Table has no header row, has trigger column
 
 @fast @stf6
 Scenario: Table has no header row, MISSING trigger column
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I get to "showifs" with this data:
     | double_quote_dict["double_quote_key"]['dq_two'] | true |
     | checkboxes_other['checkbox_other_opt_2'] | true |
@@ -118,7 +118,7 @@ Scenario: Fails when table has no header row and rows have only one column
   """
   Your Story Table definition needs to be changed.
   """
-  Given I start the interview at "all_tests"
+  Given I start the interview at "wrong"
   And I get to "showifs" with this data:
     | double_quote_dict["double_quote_key"]['dq_two'] |
     | checkboxes_other['checkbox_other_opt_2'] |

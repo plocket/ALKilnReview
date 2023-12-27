@@ -5,5 +5,5 @@ Feature: Filepaths lengths
 
 @fp1
 Scenario: Longest filepath should be under 184 characters with scenario description cut off at 70 and question id cut off at 20
-  Given I start the interview at "test_longest_filepath.yml"
+  Given I start the interview at "wrong"
   And I answer randomly for at most 3 pages

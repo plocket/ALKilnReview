@@ -16,7 +16,7 @@ Feature: Multi-language tests
 # going on
 @l1
 Scenario Outline: language url
-  Given I start the interview at "test_languages.yml<arg>"
+  Given I start the interview at "wrong"
   Then I SHOULD see the phrase "<text>"
   And I take a screenshot
 

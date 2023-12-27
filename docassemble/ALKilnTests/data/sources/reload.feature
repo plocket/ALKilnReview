@@ -53,20 +53,20 @@ Feature: Errors caused by server reload
 ## Should error after finishing test, but only because can't finish the test by going to the sign out page during server #reload. Sign out page is a necessary evil at the moment to make sure the next test starts fresh.
 #@reload2
 #Scenario: The server reloads while I tap a tab
-#  Given I start the interview at "test_taps"
+#  Given I start the interview at "wrong"
 #  And I wait 20 seconds
 #  And I tap the "Tests-second_template-tab" tab
 #  Then I see the phrase "villify"
 #
 #@reload3a
 #Scenario: The server reloads while I tap an element selector
-#  Given I start the interview at "all_tests"
+#  Given I start the interview at "wrong"
 #  And I wait 18 seconds
 #  Given the max seconds for each step in this scenario is 5
 #  Then I tap the "button.btn.btn-da.btn-primary[type='submit']" element
 #
 ##@reload3b
-##  Given I start the interview at "all_tests"
+##  Given I start the interview at "wrong"
 ##  And I wait 18 seconds
 ##  Given the max seconds for each step in this scenario is 5
 ##  Then I tap the "button.btn.btn-da.btn-primary[type='submit']" element and wait 1 seconds
@@ -74,7 +74,7 @@ Feature: Errors caused by server reload
 ## Start setup on the 12th dot
 #@reload4a
 #Scenario: The server reloads while I set the var of a continue button
-#  Given I start the interview at "all_tests"
+#  Given I start the interview at "wrong"
 #  And I tap to continue
 #  And I tap to continue
 #  When I set the var "checkboxes_yesno" to "True"
@@ -92,7 +92,7 @@ Feature: Errors caused by server reload
 ## You must add the env var `STANDARD_FIELDS`. Otherwise, it's just like @reload4a
 #@reload4b
 #Scenario: The server reloads while I set the var of a continue button
-#  Given I start the interview at "all_tests"
+#  Given I start the interview at "wrong"
 #  And I tap to continue
 #  And I tap to continue
 #  When I set the var "checkboxes_yesno" to "True"
@@ -111,7 +111,7 @@ Feature: Errors caused by server reload
 ### has a continue button field that sets a variable.
 ##@reload4c
 ##Scenario: The server reloads while I run a story table
-##  Given I start the interview at "all_tests"
+##  Given I start the interview at "wrong"
 ##  And I wait 18 seconds
 ##  Given the max seconds for each step in this scenario is 3
 ##  And I get to "id of second page" with this data:
@@ -120,20 +120,20 @@ Feature: Errors caused by server reload
 #
 #@reload5
 #Scenario: The server reloads while signing out
-#  Given I start the interview at "all_tests"
+#  Given I start the interview at "wrong"
 #  And I wait 16 seconds
 #  Given the max seconds for each step in this scenario is 1
 #
 #@reload6a
 #Scenario: The server reloads while I tap to continue
-#  Given I start the interview at "all_tests"
+#  Given I start the interview at "wrong"
 #  And I wait 18 seconds
 #  Given the max seconds for each step in this scenario is 3
 #  And I tap to continue
 #
 #@reload6b
 #Scenario: The server reloads while I run a story table
-#  Given I start the interview at "all_tests"
+#  Given I start the interview at "wrong"
 #  And I wait 18 seconds
 #  Given the max seconds for each step in this scenario is 3
 #  And I get to "direct standard fields" with this data:
@@ -145,13 +145,13 @@ Feature: Errors caused by server reload
 ## Run `npm run setup` both times. This will complicate takedown - it creates two projects, so at the end you have to takedown #the current project, which removes the project name in the config, then you have to put the name of the first project into the #config and then run takedown again.
 #@reload7
 #Scenario: The server is reloading in both attempts
-#  Given I start the interview at "all_tests"
+#  Given I start the interview at "wrong"
 #  And I wait 22 seconds
 #  Given the max seconds for each step in this scenario is 1
 #
 #@reload8
 #Scenario: The server finishes reloading before the first timeout
-#  Given I start the interview at "all_tests"
+#  Given I start the interview at "wrong"
 #  And I wait 18 seconds
 #  Given the max seconds for each step in this scenario is 30
 #  And I tap to continue
