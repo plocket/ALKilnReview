@@ -42,9 +42,9 @@ Scenario: I go to an arbitrary interview
   Given the max seconds for each step in this scenario is 5
   And the Scenario report should include:
   """
-  Trying to load the interview at "https://apps-test.suffolklitlab.org/start/demo/questions"
+  Trying to load the interview at "https://demo.docassemble.org/run/legal/#/1"
   """
-  Given I start the interview at "https://apps-test.suffolklitlab.org/start/demo/questions"
+  Given I start the interview at "https://demo.docassemble.org/run/legal/#/1"
   Then I should see the phrase "What language do you speak?"
 
 # WARNING: This Scenario may fail incorrectly if the url moves
