@@ -98,8 +98,8 @@ Scenario: I set various values
   # Next page
   Then the question id should be "the end"
 
-@fast @i2 @secret @fail
-Scenario: handles settings from Github secrets
+@fast @i2 @secret @failure
+Scenario: Fail with missing secret and succeed with correct ones
   Given the final Scenario status should be "failed"
   And the Scenario report should include:
   """
@@ -116,7 +116,7 @@ Scenario: handles settings from Github secrets
   When I tap to continue
   And I set the variable "third_text_entry" to secret "SECRET_NOT_THERE"
 
-@i3 @tap-elements @tabs
+@i3 @tap_elements @tabs
 Scenario: tap tabs and tap and wait
   Given I start the interview at "test_taps"
   And I tap the "Tests-first_template-tab" tab
@@ -128,8 +128,8 @@ Scenario: tap tabs and tap and wait
   And I tap the "#special_event" element and wait 1 second
   Then I see the phrase "Portishead"
 
-@i4 @tap-elements @tabs @error
-Scenario: tap element with an error
+@i4 @tap_elements @tabs @failure
+Scenario: Fail with tab selector missing
   Given the final Scenario status should be "failed"
   And the Scenario report should include:
   """
@@ -155,7 +155,7 @@ Scenario: Base64 encoded corner cases are decoded correctly
 # This test should fail because it's target id is never found, but that also means
 # it has succeeded because it didn't try to keep looking for the id by pressing 'restart'
 # to continue.
-@fast @i6
+@fast @i6 @failure
 Scenario: Fails as it doesn't try to 'continue' with a restart button
   Given the final Scenario status should be "failed"
   And the Scenario report should include:
@@ -180,3 +180,13 @@ Scenario: tap selectors with & without navigating
   When I tap the "#special_event" element and go to a new page
   And I wait 1 second
   Then I see the phrase "Portishead"
+
+@i8 @input_check
+Scenario: I replace a default value
+  Given I start the interview at "test_default_value"
+  And I set the variable "new_input" to "Something new!"
+  And I tap to continue
+  Then the text in the JSON variable "new_input" should be
+  """
+  Something new!
+  """

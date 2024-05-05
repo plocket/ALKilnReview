@@ -47,8 +47,73 @@ Format:
 
 ### Added
 
+- Add logs for "success" and also non-coded logs for logs that are simply cosmetic - adding a new log to space messages out or show separators.
+
+### Changed
+
+- Error messages now contain error codes. See [#730](https://github.com/SuffolkLITLab/ALKiln/issues/730).
+- Removed extra warning from sources path checking. We currently check a bunch of paths to be flexible and forgiving, so almost every test will get this warning and it will mislead users. Users do get an error message if we found no paths at all.
+
+### Internal
+
+- Added: Added script to validate log codes (error, warning, info, success, debug logs). Check for duplicate codes, with some exceptions for actions. Check for missing codes - removed codes are stored in another file, allowing this test to work properly.
+- Added: The above script also reports what the highest log code is (if tests pass), letting the developer see what log code they can add next when they need to add a new log code.
+- Added: Added code validation tests to package.json `test` script.
+- Change: Added and edited documentation comments to the workflow files
+- Change: Avoid running double tests when someone makes a pull request. See [#869](https://github.com/SuffolkLITLab/ALKiln/issues/869).
+- Change: Made sure tests for testing failure all had the same failure tags. Same for warnings.
+- Change: Added "Fail" to the start of the Scenario descriptions of each test that tests failure.
+- Change: Removed "example" code from bottom of ./action.yml page since we have our own file as an example now.
+- Change: Switch a11y tests to only run manually since docassemble changes sometimes cause our tests to fail (which isn't actually relevant to our tests). This may be a temporary fix
+- Fix: Stopped using ALKiln version "url".
+- Fix: Update dependency action versions. See [#844](https://github.com/SuffolkLITLab/ALKiln/issues/844) and [#871](https://github.com/SuffolkLITLab/ALKiln/issues/871).
+
+## [5.10.4] - 2024-03-25
+
+### Fixed
+
+- Fixes text fields did not get cleared before entering new text. Created problems with text fields that had pre-existing answers, like default answers.
+
+## [5.10.3] - 2024-03-23
+
+### Fixed
+
+- Fixes undefined var name when setting long text or ajax combobox value
+
+### Internal
+
+- Removes test for text on error pages. That keeps changing every now and then. It would be nice to test that we're catching some text, which we can't do right now. Maybe we should be broader with where we get the text since authors can also change the DOM. At least there are screenshots when possible.
+
+## [5.10.2] - 2024-02-29
+
+### Fixed
+
+- Fixed dates only being part-way filled.
+
+## [5.10.1] - 2024-02-23
+
+### Changed
+
+- Fixes the issue that typing is too fast for some fields, like Ajax comboboxes. See [#857](https://github.com/SuffolkLITLab/ALKiln/issues/857).
+
+## [5.10.0] - 2024-02-22
+
+### Added
+
 - New Step: 'I go to ""' to go to any arbitrary url, not just arbitrary interview urls.
-- New navigation report messages
+- New navigation report messages.
+- Allow non-local environments to get debug logs. For example, the GitHub console during a workflow run.
+
+### Changed
+
+- Avoid waiting for "success" on sign in. Not everyone has it.
+- Detect signature page variable names with the trigger variable name as a fallback to the `_save_as` input. If a server's config has its `restrict input variables` value set to `True`, the #trigger value is the only way for ALKiln to know which variable the signature is setting. Add an error to the report if ALKiln is unable to find either of those.
+
+### Internal
+
+- Handle non-existence of `elem` more robustly when checking for `elem.disabled`
+- Add a pause between pull request tests and push tests when the PR is coming from our own repo
+- Make getting page field values more robust by doing more to ensure that undefined option `value`s don't cause errors. For example, ajax combobox `select` options don't always have `value`s
 
 ## [5.9.0] - 2024-02-11
 
