@@ -43,7 +43,11 @@ Format:
 - 
 -->
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Changed
+
+- Use an absolute path for `runtime_config.json`
 
 ## [5.11.2] - 2024-05-17
 
