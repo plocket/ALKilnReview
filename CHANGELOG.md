@@ -45,13 +45,34 @@ Format:
 
 ## [Unreleased]
 
+### Changed
+
+- Added information to the "I should/shouldn't see the phrase" Steps.
+- [ ] "Invalid answer" Step has to come before interaction that will cause invalid answer message.
+
+### Removed
+
+- Removed the experimental "I can't continue" Step.
+- Removed the experimental "I arrive at the next page" Step.
+
+## Fixed
+
+- We stopped being able to tell when log-ins were successful. We now detect successful sign-in using server response data instead of relying on HTML elements of the sign-in page. See [#918](https://github.com/SuffolkLITLab/ALKiln/issues/918).
+
 ## Internal
 
-- Check log codes more robustly and flexibly. See [#920](https://github.com/SuffolkLITLab/ALKiln/issues/920).
+- Improved checks of log codes - more robust and flexible. See [#920](https://github.com/SuffolkLITLab/ALKiln/issues/920).
+- Start documenting decisions using the https://adr.github.io/madr template.
+- Adding to reports now returns the line that was added so it can be put in error messages.
+- [ ] Added infinite loop test.
+- [ ] Check for max page id appearance (15) to identify infinite loops without trigger vars.
+- [ ] Check for same trigger var to determine non-navigation.
+- [ ] Check for navigation at the start of each Step.
+- [ ] Get rid of "new headless" warning from puppeteer.
 
 ## [5.13.0] - 2024-07-11
 
-## Added
+### Added
 
 - Authors can now make sure that ALKiln deletes the interviews it creates for an ALKiln testing account. They can add a new (optional) value, an API key, to [the "sign in" Step](https://assemblyline.suffolklitlab.org/docs/alkiln/writing/#sign-in) and use the ["start interview" Step](https://assemblyline.suffolklitlab.org/docs/alkiln/writing/#start-interview) to go to the interview. The API key must belong to the user who signs in. Example: `Given I sign in with the email "<username env var>", the password "<password env var>", and the API key "<user API key>`. Admins can create an API key for a regular user with https://docassemble.org/docs/api.html#api_user_user_id_api_post. We will add this to the documentation for the "sign in" Step.
 

@@ -64,27 +64,28 @@ Scenario: Fail with missing element id
   And I start the interview at "all_tests"
   Then an element should have the id "wrong element id"
 
-@fast @rf7 @failure
-Scenario: Fail with unexpectedly able to continue
-  Given the final Scenario status should be "failed"
-  Given the Scenario report should include:
-  """
-  The page should have stopped the user from continuing, but the user was able to continue.
-  """
-  And I start the interview at "all_tests"
-  Then the question id should be "upload files"
-  And I tap to continue
-  Then I can't continue
+#@fast @rf7 @failure
+#Scenario: Fail with unexpectedly able to continue
+#  Given the final Scenario status should be "failed"
+#  Given the Scenario report should include:
+#  """
+#  The page should have stopped the user from continuing, but the user was able to continue.
+#  """
+#  And I start the interview at "all_tests"
+#  Then the question id should be "upload files"
+#  And I tap to continue
+#  Then I can't continue
 
 @fast @rf8 @failure
-Scenario: Fail with missing error message
+Scenario: Fail with missing invalid answer message
   Given the final Scenario status should be "failed"
   Given the Scenario report should include:
   """
   No error message was found on the page
   """
   And I start the interview at "all_tests"
-  And I will be told an answer is invalid
+  Then I will see an answer is invalid
+  When I tap to continue
 
 ## Not sure how to trigger this at the moment
 #@fast @rf9 @failure
@@ -95,7 +96,7 @@ Scenario: Fail with missing error message
 #  The error was a system error, not an error message to the user.
 #  """
 #  And I start the interview at "all_tests"
-#  And I will be told an answer is invalid
+#  And I will see an answer is invalid
 
 # TODO: Check this with validation code failure too
 @fast @rf10 @failure
@@ -360,7 +361,7 @@ Scenario: Fail with wrong email secret name
   """
   email address GitHub SECRET
   """
-  Given I log on with the email "WRONG_EMAIL_NAME" and the password "USER1_PASSWORD"
+  Given I log on with the email "WRONG_EMAIL_SECRET_NAME" and the password "USER1_PASSWORD"
 
 @fast @rf23 @signin @failure
 Scenario: Fail with wrong password secret name
@@ -369,7 +370,7 @@ Scenario: Fail with wrong password secret name
   """
   password GitHub SECRET
   """
-  Given I sign in with the email "USER1_EMAIL" and the password "WRONG_PASSWORD_NAME"
+  Given I sign in with the email "USER1_EMAIL" and the password "WRONG_PASSWORD_SECRET_NAME"
 
 @fast @rf24 @signin @failure
 Scenario: Fail with 2 wrong signin secret names
@@ -382,7 +383,7 @@ Scenario: Fail with 2 wrong signin secret names
   """
   password GitHub SECRET
   """
-  Given I sign in with the email "WRONG_EMAIL_NAME" and the password "WRONG_PASSWORD_NAME"
+  Given I sign in with the email "WRONG_EMAIL_SECRET_NAME" and the password "WRONG_PASSWORD_SECRET_NAME"
 
 @fast @rf25 @upload @failure
 Scenario: Fail with could not find files 
