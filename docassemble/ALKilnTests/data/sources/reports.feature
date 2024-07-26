@@ -84,8 +84,11 @@ Scenario: Fail with missing invalid answer message
   No error message was found on the page
   """
   And I start the interview at "all_tests"
-  Then I will see an answer is invalid
-  When I tap to continue
+  And I tap to continue
+  And I tap to continue
+  Then tapping the continue button fails
+  #Then I will see an answer is invalid
+  #When I tap to continue
 
 ## Not sure how to trigger this at the moment
 #@fast @rf9 @failure

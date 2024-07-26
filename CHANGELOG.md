@@ -49,6 +49,8 @@ Format:
 
 - Added information to the "I should/shouldn't see the phrase" Steps.
 - [ ] "Invalid answer" Step has to come before interaction that will cause invalid answer message.
+- [ ] Remove vague failure error message.
+- [ ] Moved some warnings into the debug log instead of printing them.
 
 ### Removed
 
@@ -69,6 +71,7 @@ Format:
 - [ ] Check for same trigger var to determine non-navigation.
 - [ ] Check for navigation at the start of each Step.
 - [ ] Get rid of "new headless" warning from puppeteer.
+- Refactored `After()` to allow more information to get to our final output.
 
 ## [5.13.0] - 2024-07-11
 
