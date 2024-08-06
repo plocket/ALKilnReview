@@ -63,36 +63,61 @@ SECRET_INVALID_THERE_IS_ANOTHER=invalid value for there_is_another
 
 ## Running internal tests
 
-Only run this the first time you run tests in this repository to make the code available to test on the docassemble server:
+Only run this the first time you run our internal tests. That will install the code that you will test onto the docassemble server:
 
 ```bash
 npm run setup
 ```
 
-If you run `takedown`, you will then have to run `setup` again.
+If you run `takedown`, you will then have to run `setup` again:
 
-Use the syntax below to trigger all tests (cucumber and unit tests):
+```bash
+npm run takedown
+```
+
+Some of our tests are sometimes in a failing state. For example, at times docassemble has changed its behavior and accessibility tests have failed. Those problems take a while to update and in the meantime we still need to continue development. For that reason, we sometimes mark tests with the tag `@temp_error`.
+
+We have tests that pass when they cause errors. They let us test our own error messages and error behavior. They will log an `F` in the console and yet those Scenarios will still pass.
+
+We also have some tests that cause actual errors so we can see their proper behavior. We have to run those manually and we avoid running them on GitHub. They have the tag `@error`.
+
+Use the syntax below to trigger all tests that should be passing (`pass` and unit tests):
 
 ```bash
 npm run test
 ```
 
-Run only cucumber tests:
+Run only cucumber tests that should pass:
+
+```bash
+npm run pass
+```
+
+Run deliberately failing cucumber tests:
+
+```bash
+npm run fail
+```
+
+Run all cucumber tests, even those that are incorrectly failing:
 
 ```bash
 npm run cucumber
-
-# To test Features or Scenarios specific tags:
-npm run cucumber -- "--tags" "@tagname"
 ```
 
-To run the unit tests in isolation:
+Run tests with specific cucumber tags or tag expressions:
+
+```bash
+npm run cucumber @tagname
+```
+
+Run only unit tests:
 
 ```bash
 npm run unit
 ```
 
-If you or someone else changes the interview code in `./docassemble`, you have to clean up the old data on the server before running `setup` again:
+If you or someone else changes the interview code in `./docassemble/ALKilnTests/data/questions/*.yml`, you have to clean up the old code on the server before running `setup` again:
 
 ```bash
 npm run takedown
@@ -114,9 +139,7 @@ When the developer commits code to GitHub, their account triggers our code, pass
 
 ## Updating dependencies
 
-Sometimes you will have to add dependencies to ALKiln. You can do so by adding the dependency in the `package.json` "dependencies" section, specifying an exact version. Then, run `npm install` to update `npm-shrinkwrap.json` to have the new dependency.
-
-If you have to update an existing dependency, you can change the version in `package.json`, and run `npm install` to update `npm-shrankwrap.json`.
+To add or update a dependency, edit `package.json` with an exact version. That means avoid notations like `^`, `~`, and `x`. Then run `npm install` and `npm shrinkwrap` to update `npm-shrinkwrap.json`.
 
 ## Very general architecture of files and folders
 
@@ -125,23 +148,6 @@ An honest look at our current project architecture—some of our files and folde
 ### Logic architecture
 
 ALKiln uses [cucumber](https://cucumber.io/docs/installation/javascript/)[^1] with [Gherkin](https://cucumber.io/docs/gherkin/reference/) syntax, [puppeteer](https://pptr.dev/), and [chai](https://www.chaijs.com/).
-
-#### .feature files
-
-The `.feature` files are written in Gherkin, a syntax cucumber uses. The "code" in there relies on the functions set up in `./lib/steps.js`.
-
-```js
-// The test_something.feature file step
-Then I sign
-
-// relies on the code in steps.js
-Then('I sign', { timeout: -1 }, async () => {
-  return wrapPromiseWithTimeout(
-    scope.steps.sign( scope ),
-    scope.timeout
-  );
-});
-```
 
 #### steps.js
 
@@ -172,37 +178,37 @@ The file handles things like:
 
 ### Logging
 
-`./lib/utils/log.js` takes care of logging information of various kinds (normal, debug, error) to the command line in ways we hope are useful. We should probably find a logging library instead, but this is what we have for now. An important feature is that it ensures the messages clearly belong to ALKiln and not to some other process.
+`./lib/utils/log.js` and `./lib/utils/reports.js` take care of logging information of various kinds (normal, debug, error) to the command line in ways we hope are useful, as well as building files to store the same information. We should probably find a logging library instead, but this is what we have for now. An important feature is that it ensures the messages clearly belong to ALKiln and not to some other process.
 
 ### session_vars.js
 
-The `./lib/utils/session_var.js` file keeps track of what you might otherwise think of as environment variables. We like to think of them as constants, but some of them do need to go through functions, so for consistency we get them all through functions. Also because it was easier to test them when they are functions.
+The `./lib/utils/session_var.js` file keeps track of what you might otherwise think of as environment variables. We like to think of them as constants, but some of them do need to go through functions, so for consistency we get them all through functions. Also because it is easier to test them when they are functions.
 
 ### Setup and takedown logic
 
 All of the setup and takedown logic is in the `./lib/docassemble` directory. It is named after the docassemble API code that is in there. Also, setup and takedown interact very closely with docassemble and the docassemble server.
 
-Other files also use the docassemble API functions, so this folder is in a bit of a messy position.
-
 ### Bash commands
 
-When you `npm run` the scripts in our `./package.json` you can setup, run, or takedown tests. We are working on converting this to a command line tool to avoid some complexity in GitHub actions, increase security, and align more with what this framework has grown into. (TODO: Define this better)
+When you `npm run` the scripts in our `./package.json` you can setup, run, or take down tests. It is a command line tool to avoid some complexity in GitHub actions, increase security, and align with what this framework has grown into.
 
-### GitHub composite action
+### GitHub composite actions
 
-Our `./action.yml` is a [composite action](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action). The users/developers let it do most of the work for them. It installs npm, installs our repo, then uses our repo to set up the tests, run the tests, generate and save reports, errors, and screenshots, and clean up the tests.
+Our `./action.yml` and `action_for_github_server/action.yml` are [composite actions](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action). The users/authors/developers let it do most of the work for them. It installs npm, installs our repo, then uses our repo to set up the tests, run the tests, generate and save reports, errors, and screenshots, and clean up the tests.
 
 ### Internal tests
 
-We have our own docassemble package in our repo to test our own end-to-end tests. Most of what the package needs is in `./docassemble`. That docassemble package is what the test setup pulls into the docassemble server. Our internal end-to-end cucumber tests are `.feature` files that are stored in `./docassemble/ALKilnTests/data/sources`. The interview (online form) `.yml` files that those `.feature` files use are also deep in the `./docassemble` package. You probably won't be touching the interview files. If you get curious, feel free to ask us.
+We have our own docassemble package inside our repo to test our own code. That is what our test setup installs on Suffolk's docassemble server. Those internal `.feature` tests are in `./docassemble/ALKilnTests/data/sources/*.feature`. The `.yml` interview (online form) files we test with those are in `./docassemble/ALKilnTests/data/questions/*.yml`.
+
+The `.feature` tests, like our user's tests, are written in Gherkin, a syntax cucumber uses. The "code" in there relies on the functions set up in `./lib/steps.js`. See [the documentation](https://assemblyline.suffolklitlab.org/docs/alkiln/writing) for examples.
 
 There are other files the docassemble package needs, like `./setup.py`, so if you see them around, don't worry about them.
 
-Our unit tests are in `./tests/unit_tests` and their filenames end in `.test.js`. Like the cucumber tests, they use chai for assertions. The fixtures for the tests are also contained in that folder and end in `.fixtures.js`.
+Our unit tests are in `./tests/unit_tests` and their filenames end in `.test.js`. Like some of the cucumber Steps, they use chai for assertions. The fixtures for the tests are also contained in that folder and end in `.fixtures.js`.
 
-If you want to know the commands, you can go to the [instructions for running tests](#running-internal-tests).
+If you want to run the tests, you can go to the [instructions for running tests section](#running-internal-tests) in this README.
 
-### Files that you don't need to look at
+### Files that you probably don't need to look at
 
 `index.js` and `world.js` are short files that cucumber needs.
 

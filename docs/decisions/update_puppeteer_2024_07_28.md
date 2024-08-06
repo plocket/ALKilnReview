@@ -2,13 +2,13 @@
 
 ## Context and Problem Statement
 
-Should we update to the newest version of puppeteer, [22.14.0](https://github.com/puppeteer/puppeteer/blob/main/packages/puppeteer-core/CHANGELOG.md#22140-2024-07-25)?
+Should we update to the newest version of puppeteer, [22.15.0](https://github.com/puppeteer/puppeteer/blob/main/packages/puppeteer-core/CHANGELOG.md#22150-2024-07-31)?
 
 See https://github.com/SuffolkLITLab/ALKiln/issues/930.
 
 ## Considered Options
 
-- Update to 22.14.0
+- Update to 22.15.0
 - Update to 22.12.0, which is the lowest version that would fix our current problems
 - Stay with 20.8.2
 
@@ -16,7 +16,7 @@ See pros and cons
 
 ## Decision Outcome
 
-Update puppeteer from 20.8.2 to 22.14.0
+Update puppeteer from 20.8.2 to 22.15.0
 
 ## Pros and Cons of the Options
 
@@ -33,7 +33,7 @@ Update puppeteer from 20.8.2 to 22.14.0
    - "Removes the deprecated `$x` (replace with `$$`) and `waitForXpath` (replace with `waitForSelector`)." We need to add [extra syntax to the start of our selector strings](https://github.com/puppeteer/puppeteer/pull/11782): "xpath//."
    - Replace any `page.waitForTimeout` with cucumber's version or ours.
 
-### Update to to 22.14.0
+### Update to to 22.15.0
 
 **Pros:**
 

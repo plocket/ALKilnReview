@@ -51,6 +51,7 @@ Format:
 - [ ] "Invalid answer" Step has to come before interaction that will cause invalid answer message.
 - [ ] Remove vague failure error message.
 - [ ] Moved some warnings into the debug log instead of printing them.
+- [ ] Update CONTRIBUTING.md
 
 ### Removed
 

@@ -4,7 +4,7 @@
   "description": "Integrated automated end-to-end testing with docassemble, puppeteer, and cucumber.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm run unit && npm run codes && npm run cucumber",
+    "test": "npm run unit && npm run codes && npm run pass",
     "cucumber": "./lib/run_cucumber.js",
     "local": "npm run setup && npm run cucumber; npm run takedown",
     "pass": "npm run cucumber 'not @error and not @temp_error'",
@@ -48,7 +48,7 @@
     "minimist": "1.2.8",
     "mocha": "9.2.2",
     "pdfjs-dist": "3.2.146",
-    "puppeteer": "22.14.0",
+    "puppeteer": "22.15.0",
     "qs": "6.10.3",
     "sanitize-filename": "1.6.3",
     "uuid": "8.3.2"
